@@ -1,20 +1,16 @@
-using System.Text;
 using AutoMapper;
 using Hexa.Core.Data;
 using Hexa.Core.Domain.Customers;
-using Hexa.Core.Domain.Shared;
 using Hexa.Data;
-using Hexa.Service.Authentication;
 using Hexa.Service.Contracts.Customers;
 using Hexa.Service.Services.Customers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Mvc.Formatters.Json;
 
 namespace HexaCommerce
 {
@@ -32,8 +28,13 @@ namespace HexaCommerce
         {
             services.AddDbContext<HexaDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddMvc();
             services.AddAutoMapper();
+            services.AddMvc()
+                
+            .AddJsonOptions(options =>
+             {
+                 options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+             });
 
             services.AddTransient<IHexaRepository<Customer>, HexaRepository<Customer>>();
             services.AddTransient<IHexaRepository<CustomerRole>, HexaRepository<CustomerRole>>();

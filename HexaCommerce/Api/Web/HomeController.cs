@@ -1,25 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAngularRAC.Filters;
 
 namespace HexaCommerce.Api.Web
 {
-    [Produces("application/json")]
-    [Route("api/home")]
-    [TypeFilter(typeof(UserAuthorizeAttribute))]
-    public class HomeController : Controller
+    public class HomeController : BasePublicApiController
     {
-        // GET api/values/5  
-        [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "visit by jwt auth";
+            return Ok("Welcome to home page");
         }
-
-        // GET api/values/5  
-        //[HttpGet]
-        //public string Values(int id)
-        //{
-        //    return $"visiting without authentication {id}";
-        //}
     }
 }

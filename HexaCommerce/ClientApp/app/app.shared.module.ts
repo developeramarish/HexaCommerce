@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing'
+import { NgProgressModule } from 'ng2-progressbar'
 
 //user pages
 import { AppComponent } from './modules/app/components/app/app.component';
 import { NavMenuComponent } from './modules/app/components/navmenu/navmenu.component';
 import { HomeComponent } from './modules/app/components/home/home.component';
 import { FetchDataComponent } from './modules/app/components/fetchdata/fetchdata.component';
+import { LoginComponent } from '../app/modules/app/components/login/login.component'
 
-////admin pages
-//import { AdminAppComponent } from './modules/admin/components/adminapp/adminapp.component';
-//import { AdminNavMenuComponent } from './modules/admin/components/adminnavmenu/adminnavmenu.component';
-//import { DashboardComponent } from './modules/admin/components/dashboard/dashboard.component';
 import { AdminAppModuleShared } from './modules/admin/admin.shared.module';
 
 
@@ -25,16 +24,14 @@ import { AdminAppModuleShared } from './modules/admin/admin.shared.module';
         NavMenuComponent,
         FetchDataComponent,
         HomeComponent,
-
-        //admin components
-        //AdminAppComponent,
-        //AdminNavMenuComponent,
-        //DashboardComponent
+        LoginComponent
     ],
     imports: [
+        BrowserModule,
         CommonModule,
         HttpModule,
         FormsModule,
+        NgProgressModule,
         AppRoutingModule,
         AdminAppModuleShared
     ],

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 namespace HexaCommerce.Api.Web
 {
     [Route("api/[controller]")]
-    public class BaseApiPublicController : Controller
+    public class BasePublicApiController : Controller
     {
         
     }

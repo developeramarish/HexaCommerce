@@ -28,19 +28,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\guards\auth.adminguard.ts" />
+    <None Remove="ClientApp\app\guards\auth.guard.ts" />
     <None Remove="ClientApp\app\modules\admin\admin.module.ts" />
     <None Remove="ClientApp\app\modules\admin\adminapp.routing.ts" />
     <None Remove="ClientApp\app\modules\admin\components\category\category.component.ts" />
     <None Remove="ClientApp\app\modules\admin\components\dashboard\admin.routing.ts" />
     <None Remove="ClientApp\app\modules\admin\components\dashboard\dashboard.component.ts" />
     <None Remove="ClientApp\app\modules\app\app.routing.ts" />
+    <None Remove="ClientApp\app\modules\app\components\login\login.component.ts" />
+    <None Remove="ClientApp\app\modules\app\components\login\login.model.ts" />
+    <None Remove="ClientApp\app\modules\app\components\login\login.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\app.routing.ts" />
+    <TypeScriptCompile Include="ClientApp\app\guards\auth.adminguard.ts" />
+    <TypeScriptCompile Include="ClientApp\app\guards\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\adminapp.routing.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\category.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\dashboard\dashboard.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\app\components\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\app\components\login\login.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\app\components\login\login.service.ts" />
   </ItemGroup>
 
   <ItemGroup>

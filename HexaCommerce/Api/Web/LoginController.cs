@@ -6,8 +6,7 @@ using System;
 
 namespace HexaCommerce.Api.Web
 {
-    [Produces("application/json")]
-    public class LoginController : BaseApiPublicController
+    public class LoginController : BasePublicApiController
     {
         private readonly ICustomerService _customerService;
 
