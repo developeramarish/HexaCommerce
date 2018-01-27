@@ -7,7 +7,7 @@ namespace HexaCommerce.Api.Admin
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "visit by jwt auth";
+            return "visit by auth token";
         }
     }
 }
