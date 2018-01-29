@@ -1,11 +1,11 @@
 <nav class='navbar navbar-inverse'>
     <div class='container-fluid'>
         <ul class='nav navbar-nav'>
-            <li><a [routerLink]="['/UserDashboard']">Home</a></li>
-            <li><a [routerLink]="['/Login']">Login</a></li>
-            <li><a [routerLink]="['/ChangePassword']">ChangePassword</a></li>
-            <li><a [routerLink]="['/Admin']">Admin</a></li>
-            <li><a [routerLink]="['/UserLogout']">Logout</a></li>
+            <li><a [routerLink]="['/UserDashboard']" >Home</a></li>
+            <li><a [routerLink]="['/Login']" *ngIf="!IsCustomerLoggedIn">Login</a></li>
+            <li><a [routerLink]="['/ChangePassword']" *ngIf="IsCustomerLoggedIn">ChangePassword</a></li>
+            <li><a [routerLink]="['/Admin']" *ngIf="IsAdminCustomer">Admin</a></li>
+            <li><a [routerLink]="['/Logout']" *ngIf="IsCustomerLoggedIn">Logout</a></li>
         </ul>
     </div>
 </nav>

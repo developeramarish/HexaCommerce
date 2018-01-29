@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing'
-import { NgProgressModule } from 'ng2-progressbar'
+import { BsModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 //user pages
 import { AppComponent } from './modules/app/components/app/app.component';
@@ -13,6 +13,7 @@ import { NavMenuComponent } from './modules/app/components/navmenu/navmenu.compo
 import { HomeComponent } from './modules/app/components/home/home.component';
 import { FetchDataComponent } from './modules/app/components/fetchdata/fetchdata.component';
 import { LoginComponent } from '../app/modules/app/components/login/login.component'
+import { LogoutComponent } from '../app/modules/app/components/login/logout.component'
 
 import { AdminAppModuleShared } from './modules/admin/admin.shared.module';
 
@@ -24,15 +25,17 @@ import { AdminAppModuleShared } from './modules/admin/admin.shared.module';
         NavMenuComponent,
         FetchDataComponent,
         HomeComponent,
-        LoginComponent
+        LoginComponent,
+        LogoutComponent
     ],
     imports: [
         BrowserModule,
         CommonModule,
         HttpModule,
         FormsModule,
-        NgProgressModule,
+        ReactiveFormsModule,
         AppRoutingModule,
+        BsModalModule,
         AdminAppModuleShared
     ],
     bootstrap: [AppComponent]

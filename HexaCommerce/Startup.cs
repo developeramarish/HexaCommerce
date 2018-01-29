@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc.Formatters.Json;
+using Hexa.Service.Contracts.Catalog;
+using Hexa.Service.Services.Catalog;
+using Hexa.Core.Domain.Catalog;
 
 namespace HexaCommerce
 {
@@ -40,7 +42,9 @@ namespace HexaCommerce
             services.AddTransient<IHexaRepository<CustomerRole>, HexaRepository<CustomerRole>>();
             services.AddTransient<IHexaRepository<CustomerCustomerRole>, HexaRepository<CustomerCustomerRole>>();
             services.AddTransient<IHexaRepository<TokenManager>, HexaRepository<TokenManager>>();
+            services.AddTransient<IHexaRepository<Category>, HexaRepository<Category>>();
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<ICategoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

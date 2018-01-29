@@ -5,9 +5,9 @@ namespace HexaCommerce.Api.Admin
     public class DashboardController : BaseAdminApiController
     {
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "visit by auth token";
+            return Ok("visit by auth token");
         }
     }
 }

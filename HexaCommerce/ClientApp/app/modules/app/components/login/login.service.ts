@@ -21,21 +21,14 @@ export class LoginService {
             map((response: Response) => {
                 let apiResponse = response.json() && response.json();
                 if (apiResponse != null) {
-                    if (apiResponse.CustomerTypeIds == "151") {
-                        // store username and jwt token in local storage to keep user logged in between page refreshes
-                        localStorage.setItem('adminCustomer', JSON.stringify({ username: loginModel.UserName, token: apiResponse.Token }));
-                    }
-                    else if (apiResponse.CustomerTypeIds == "152") {
-                        // store username and jwt token in local storage to keep user logged in between page refreshes
-                        localStorage.setItem('registeredCustomer', JSON.stringify({ username: loginModel.UserName, token: apiResponse.Token }));
-                    }
-
+                    localStorage.setItem('currentCustomer', JSON.stringify({ username: loginModel.UserName, token: apiResponse.Token, isAdmin: apiResponse.IsAdmin }));
                     return apiResponse;
                 }
                 else {
                     return null;
                 }
             }).catch(response => {
+                console.log(response);
                 if (response.status === 401) {
                     this._router.navigate(['Login']);
                 }
@@ -44,8 +37,6 @@ export class LoginService {
     }
 
     logoutCustomer() {
-        localStorage.removeItem("registeredCustomer");
-        localStorage.removeItem("adminCustomer");
+        localStorage.removeItem("currentCustomer");
     }
-
 }

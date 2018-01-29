@@ -7,10 +7,12 @@ export class AdminAuthGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate() {
-        if (localStorage.getItem('adminCustomer')) {
 
-            // logged in user so return true
-            return true;
+        var currentCustomer = localStorage.getItem('currentCustomer');
+        if (currentCustomer !== null) {
+
+            // logged in user so chekc if admin
+            return JSON.parse(currentCustomer).isAdmin;
         }
 
         // if not logged in so redirect to login page

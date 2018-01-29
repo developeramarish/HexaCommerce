@@ -1,1 +1,24 @@
 ﻿<h3 class="title">Categories</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Active</th>
+            <th>Display Order</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of Categories">
+            <td>{{item.Id}}</td>
+            <td>{{item.Name}}</td>
+            <td>{{item.Active ? 'Yes' : 'No'}}</td>
+            <td>{{item.DisplayOrder}}</td>
+            <td><a [routerLink]="['/Admin/EditCategory', item.Id]">Edit</a></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

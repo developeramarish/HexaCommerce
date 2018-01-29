@@ -1,22 +1,18 @@
-﻿using Hexa.Core.Domain.Catalog;
-using System;
+﻿using Hexa.Business.Models.Catalog;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hexa.Service.Contracts.Catalog
 {
     public interface ICategoryService
     {
-        void DeleteCategory(Category category);
+        void DeleteCategory(CategoryModel category);
 
-        Category GetCategoryById(int categoryId);
+        CategoryModel GetCategoryById(int categoryId);
 
-        void InsertCategory(Category category);
+        void InsertCategory(CategoryModel category);
 
-        void UpdateCategory(Category category);
+        void UpdateCategory(CategoryModel category);
 
-        IList<Category> GetAllCategories(string name);
+        List<CategoryModel> GetAllCategories(string name);
     }
 }

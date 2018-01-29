@@ -10,6 +10,7 @@ namespace Hexa.Data.DataMapping.Customers
         {
             builder.ToTable("TokenManager");
             builder.HasKey(c => c.Id);
+            builder.Property(c => c.CreatedOn).HasDefaultValueSql("GETDATE()");
         }
     }
 }

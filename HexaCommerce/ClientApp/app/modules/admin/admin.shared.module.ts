@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AdminRoutingModule } from './adminapp.routing'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //admin pages
 import { AdminAppComponent } from './components/adminapp/adminapp.component';
 import { AdminNavMenuComponent } from './components/adminnavmenu/adminnavmenu.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CategoryComponent } from './components/category/category.component';
+import { EditCategoryComponent } from './components/category/editcategory.component';
 
 
 @NgModule({
@@ -18,12 +19,14 @@ import { CategoryComponent } from './components/category/category.component';
         AdminAppComponent,
         AdminNavMenuComponent,
         DashboardComponent,
-        CategoryComponent
+        CategoryComponent,
+        EditCategoryComponent
     ],
     imports: [
         CommonModule,
         HttpModule,
-        FormsModule,
+        FormsModule,    //added here too
+        ReactiveFormsModule, //added here too
         AdminRoutingModule
     ],
     bootstrap: [

@@ -15,6 +15,7 @@ namespace Hexa.Data.DataMapping.Customers
             builder.Property(c => c.UserName).IsRequired().HasMaxLength(100);
             builder.Property(c => c.Email).IsRequired().HasMaxLength(100);
             builder.Property(c => c.Password).IsRequired().HasMaxLength(100);
+            builder.Property(c => c.CreatedOn).HasDefaultValueSql("GETDATE()");
         }
     }
 }

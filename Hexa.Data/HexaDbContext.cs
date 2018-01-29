@@ -1,4 +1,5 @@
-﻿using Hexa.Core.Domain.Customers;
+﻿using Hexa.Core.Domain.Catalog;
+using Hexa.Core.Domain.Customers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Hexa.Data
         public DbSet<CustomerRole> CustomerRoles { get; set; }
         public DbSet<CustomerCustomerRole> CustomerCustomerRoles { get; set; }
         public DbSet<TokenManager> TokenManager { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public HexaDbContext(DbContextOptions<HexaDbContext> options) : base(options)
         { }

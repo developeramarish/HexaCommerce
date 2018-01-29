@@ -7,6 +7,7 @@ import { AdminAppComponent } from './components/adminapp/adminapp.component';
 import { AdminNavMenuComponent } from './components/adminnavmenu/adminnavmenu.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CategoryComponent } from './components/category/category.component';
+import { EditCategoryComponent } from './components/category/editcategory.component';
 
 const routes: Routes = [
     {
@@ -15,6 +16,7 @@ const routes: Routes = [
         children: [
             { path: 'Dashboard', component: DashboardComponent },
             { path: 'Category', component: CategoryComponent },
+            { path: 'EditCategory/:id', component: EditCategoryComponent },
         ]
     },
     {

@@ -1,0 +1,37 @@
+﻿<h3 class="title">Edit Category</h3>
+<div class="jumbotron">
+    <form *ngIf="Category" [formGroup]="categoryFrm" (ngSubmit)="submitForm(categoryFrm.value)">
+        
+        <div class="form-group" [ngClass]="{'has-error':!categoryFrm.controls['Name'].valid && categoryFrm.controls['Name'].touched}">
+            <label>Name</label>
+            <input class="form-control" type="text" placeholder="Category Name" [formControl]="categoryFrm.controls['Name']" required>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" placeholder="Description" [formControl]="categoryFrm.controls['Description']"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Parent Category</label>
+            <input class="form-control" type="text" placeholder="John" [formControl]="categoryFrm.controls['ParentCategoryId']">
+        </div>
+        <div class="form-group">
+            <label for="IncludeInNavigation">Add to navigation</label>
+            <input type="checkbox" value="hiking" name="IncludeInNavigation" [formControl]="categoryFrm.controls['IncludeInNavigation']">
+        </div>
+        <div class="form-group">
+            <label>Active</label>
+            <input type="checkbox" value="swimming" name="Active" [formControl]="categoryFrm.controls['Active']">
+        </div>
+        <div class="form-group">
+            <label>Delete</label>
+            <input type="checkbox" value="running" name="Deleted" [formControl]="categoryFrm.controls['Deleted']">
+        </div>
+        <div class="form-group">
+            <label>Display Order</label>
+            <input class="form-control" type="text" placeholder="Display Order" [formControl]="categoryFrm.controls['DisplayOrder']">
+        </div>
+        <div class="form-group">
+            <button type="submit" [disabled]="!categoryFrm.valid" class="btn btn-default">Submit</button>
+        </div>
+    </form>
+</div>

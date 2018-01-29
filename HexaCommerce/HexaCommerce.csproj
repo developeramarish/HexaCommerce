@@ -33,12 +33,16 @@
     <None Remove="ClientApp\app\modules\admin\admin.module.ts" />
     <None Remove="ClientApp\app\modules\admin\adminapp.routing.ts" />
     <None Remove="ClientApp\app\modules\admin\components\category\category.component.ts" />
+    <None Remove="ClientApp\app\modules\admin\components\category\category.model.ts" />
+    <None Remove="ClientApp\app\modules\admin\components\category\category.service.ts" />
+    <None Remove="ClientApp\app\modules\admin\components\category\editcategory.component.ts" />
     <None Remove="ClientApp\app\modules\admin\components\dashboard\admin.routing.ts" />
     <None Remove="ClientApp\app\modules\admin\components\dashboard\dashboard.component.ts" />
     <None Remove="ClientApp\app\modules\app\app.routing.ts" />
     <None Remove="ClientApp\app\modules\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\modules\app\components\login\login.model.ts" />
     <None Remove="ClientApp\app\modules\app\components\login\login.service.ts" />
+    <None Remove="ClientApp\app\modules\app\components\login\logout.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,8 +50,12 @@
     <TypeScriptCompile Include="ClientApp\app\guards\auth.adminguard.ts" />
     <TypeScriptCompile Include="ClientApp\app\guards\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\adminapp.routing.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\editcategory.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\category.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\category.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\category.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\dashboard\dashboard.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\app\components\login\logout.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\app\components\login\login.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\app\components\login\login.service.ts" />

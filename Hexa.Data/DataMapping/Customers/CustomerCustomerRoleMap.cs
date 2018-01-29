@@ -19,6 +19,8 @@ namespace Hexa.Data.DataMapping.Customers
             builder.HasOne(b => b.Customer).WithMany(b => b.CustomerRoles).HasForeignKey(b => b.CustomerId);
 
             builder.HasOne(b => b.CustomerRole).WithMany(b => b.CustomerRoles).HasForeignKey(b => b.CustomerRoleId);
+
+            builder.Property(c => c.CreatedOn).HasDefaultValueSql("GETDATE()");
         }
     }
 }

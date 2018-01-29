@@ -244,7 +244,8 @@ namespace Hexa.Service.Services.Customers
                 {
                     UserName = tokenModel.UserName,
                     Token = newToken.TokenKey,
-                    CustomerTypeIds = string.Join(",", tokenModel.CustomerRoleIds.ToArray())
+                    CustomerTypeIds = string.Join(",", tokenModel.CustomerRoleIds.ToArray()),
+                    IsAdmin = tokenModel.CustomerRoleIds.Contains((int)CustomerRoleEnum.Admin)
                 };
             }
             catch (Exception)
