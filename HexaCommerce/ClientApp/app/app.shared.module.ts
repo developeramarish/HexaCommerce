@@ -11,9 +11,9 @@ import { BsModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { AppComponent } from './modules/app/components/app/app.component';
 import { NavMenuComponent } from './modules/app/components/navmenu/navmenu.component';
 import { HomeComponent } from './modules/app/components/home/home.component';
-import { FetchDataComponent } from './modules/app/components/fetchdata/fetchdata.component';
-import { LoginComponent } from '../app/modules/app/components/login/login.component'
-import { LogoutComponent } from '../app/modules/app/components/login/logout.component'
+import { LoginComponent } from '../app/modules/app/components/login/login.component';
+import { LogoutComponent } from '../app/modules/app/components/login/logout.component';
+import { FooterComponent } from '../app/modules/app/components/footer/footer.component';
 
 import { AdminAppModuleShared } from './modules/admin/admin.shared.module';
 
@@ -23,10 +23,10 @@ import { AdminAppModuleShared } from './modules/admin/admin.shared.module';
         //user components
         AppComponent,
         NavMenuComponent,
-        FetchDataComponent,
         HomeComponent,
         LoginComponent,
-        LogoutComponent
+        LogoutComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,

@@ -19,7 +19,8 @@ namespace Hexa.Service.Services.Catalog
 
         #region Ctor
 
-        public CategoryService(IHexaRepository<Category> categoryRepository)
+        public CategoryService(IHexaRepository<Category> categoryRepository,
+            IMapper mapper)
         {
             _categoryRepository = categoryRepository;
         }

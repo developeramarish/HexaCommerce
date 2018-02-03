@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    selector: 'footer',
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.css', '../app/app.component.css']
 })
-export class AppComponent {
+export class FooterComponent implements OnInit {
     private data: any;
     ifCustomerLoggedIn: boolean;
     ifAdminCustomer: boolean;
@@ -18,3 +18,4 @@ export class AppComponent {
         this.ifAdminCustomer = userJson !== null ? JSON.parse(userJson).isAdmin : null;
     }
 }
+

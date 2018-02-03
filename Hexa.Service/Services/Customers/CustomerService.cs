@@ -164,8 +164,11 @@ namespace Hexa.Service.Services.Customers
             var token = GetTokenByCustomerId(customerId);
 
             if (token != null && token.ExpiresOn > DateTime.Now)
+            {
+                token.ExpiresOn = DateTime.Now.AddMinutes(30);
+                _tokenManagerRepository.Update(token);
                 return Mapper.Map<CustomerModel>(customer);
-
+            }
             return null;
         }
 

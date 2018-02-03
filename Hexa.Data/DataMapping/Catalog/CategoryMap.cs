@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Hexa.Data.DataMapping.Catalog
 {
-    public partial class CategoryMap : IEntityTypeConfiguration<Category>
+    public partial class LogMap : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {

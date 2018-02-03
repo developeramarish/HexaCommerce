@@ -39,7 +39,7 @@ namespace HexaCommerce.Api.Admin
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                throw;
             }
         }
         
@@ -54,7 +54,7 @@ namespace HexaCommerce.Api.Admin
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                throw;
             }
         }
         
@@ -69,7 +69,7 @@ namespace HexaCommerce.Api.Admin
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                throw;
             }
         }
     }

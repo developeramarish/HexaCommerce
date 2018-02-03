@@ -13,40 +13,55 @@ export class CategoryService {
     private token: string = "";
     private userJson: any;
 
-    constructor(private _http: Http, private _router: Router)
-    {
+    constructor(private _http: Http, private _router: Router) {
         this.userJson = localStorage.getItem('currentCustomer');
-        this.token = this.userJson !== null ? JSON.parse(this.userJson).token :  null;
+        this.token = this.userJson !== null ? JSON.parse(this.userJson).token : null;
     }
 
-    public GetAllCategories = (): Observable<any> =>
-    {
+    public getAllCategories = (): Observable<any> => {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         headers.append('Token', this.token);
 
         let options = new RequestOptions({ headers: headers });
         return this._http.get("admin/api/Category", options)
             .map((response: Response) => <any>response.json())
-            .catch(response => {
-                if (response.status == 401) {
-                    this._router.navigate(['Login']);
-                }
-                return response;
-            });
+            .catch(this.handleError);
     }
 
-    public GetCategoryById = (id: number): Observable<any> => {
+    public getCategoryById = (id: number): Observable<any> => {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         headers.append('Token', this.token);
 
         let options = new RequestOptions({ headers: headers });
         return this._http.get("admin/api/Category/" + id, options)
             .map((response: Response) => <any>response.json())
-            .catch(response => {
-                if (response.status == 401) {
-                    this._router.navigate(['Login']);
-                }
-                return response;
-            });
+            .catch(this.handleError);
+    }
+
+    public addCategory = (categoryModel: CategoryModel): Observable<any> => {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        headers.append('Token', this.token);
+        let body = JSON.stringify(categoryModel);
+
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post("admin/api/Category/", body, options)
+            .map((response: Response) => response)
+            .catch(this.handleError);
+    }
+
+    public updateCategory = (categoryModel: CategoryModel): Observable<any> => {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        headers.append('Token', this.token);
+        let body = JSON.stringify(categoryModel);
+
+        let options = new RequestOptions({ headers: headers });
+        return this._http.put("admin/api/Category/", body, options)
+            .map((response: Response) => response)
+            .catch(this.handleError);
+    }
+
+    private handleError(error: Response) {
+        alert("There is some issue in submitting form");
+        return Observable.throw(error || 'Server error');
     }
 }

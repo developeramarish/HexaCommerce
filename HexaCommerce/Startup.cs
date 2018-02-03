@@ -13,6 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Hexa.Service.Contracts.Catalog;
 using Hexa.Service.Services.Catalog;
 using Hexa.Core.Domain.Catalog;
+using Hexa.Core.Domain.Logs;
+using Hexa.Service.Contracts.Logs;
+using Hexa.Service.Services.Logs;
 
 namespace HexaCommerce
 {
@@ -31,9 +34,7 @@ namespace HexaCommerce
             services.AddDbContext<HexaDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper();
-            services.AddMvc()
-                
-            .AddJsonOptions(options =>
+            services.AddMvc().AddJsonOptions(options =>
              {
                  options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
              });
@@ -43,8 +44,10 @@ namespace HexaCommerce
             services.AddTransient<IHexaRepository<CustomerCustomerRole>, HexaRepository<CustomerCustomerRole>>();
             services.AddTransient<IHexaRepository<TokenManager>, HexaRepository<TokenManager>>();
             services.AddTransient<IHexaRepository<Category>, HexaRepository<Category>>();
+            services.AddTransient<IHexaRepository<Log>, HexaRepository<Log>>();
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ILogService, LogService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

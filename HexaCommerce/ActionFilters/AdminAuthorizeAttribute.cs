@@ -1,5 +1,4 @@
-﻿using Hexa.Business;
-using Hexa.Core;
+﻿using Hexa.Core;
 using Hexa.Core.Domain.Customers;
 using Hexa.Service.Contracts.Customers;
 using Microsoft.AspNetCore.Mvc;

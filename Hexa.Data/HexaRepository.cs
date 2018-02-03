@@ -67,6 +67,7 @@ namespace Hexa.Data
                 if(entity == null)
                     throw new ArgumentNullException("entity");
 
+                Entities.Update(entity);
                 _context.SaveChanges();
             }
             catch (Exception)

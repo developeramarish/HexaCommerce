@@ -15,8 +15,6 @@ export class CategoryComponent implements OnInit {
     @ViewChild('modal') modal: BsModalComponent;
     Categories: CategoryModel[];
     categoryFrm: FormGroup;
-    modalTitle: string;
-    modalBtnTitle: string;
 
     constructor(private _categoryService: CategoryService, private fb: FormBuilder) { }
 
@@ -32,7 +30,7 @@ export class CategoryComponent implements OnInit {
             DisplayOrder: ['']
         });
 
-        this._categoryService.GetAllCategories().subscribe(data => {
+        this._categoryService.getAllCategories().subscribe(data => {
             this.Categories = data
         }, error => {
             if (error) {
@@ -40,11 +38,4 @@ export class CategoryComponent implements OnInit {
             }
         });
     }
-
-    addCategory() {
-        this.modalTitle = "Add Category";
-        this.modalBtnTitle = "Add";
-        this.modal.open();
-    }
-
 }

@@ -1,6 +1,11 @@
-﻿<h3 class="title">Edit Category</h3>
+﻿<div>
+    <h3 class="title">{{action}} Category</h3>
+    <span><a [routerLink]="['/Admin/Category']">Back to list</a></span>
+</div>
 <div class="jumbotron">
-    <form *ngIf="Category" [formGroup]="categoryFrm" (ngSubmit)="submitForm(categoryFrm.value)">
+    <form *ngIf="categoryFrm" [formGroup]="categoryFrm" (ngSubmit)="onSubmit(categoryFrm.value)">
+        
+        <input type="hidden" [formControl]="categoryFrm.controls['Id']"/>
         
         <div class="form-group" [ngClass]="{'has-error':!categoryFrm.controls['Name'].valid && categoryFrm.controls['Name'].touched}">
             <label>Name</label>

@@ -11,9 +11,10 @@ using System;
 namespace Hexa.Data.Migrations
 {
     [DbContext(typeof(HexaDbContext))]
-    partial class HexaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180202164332_AddedLogging")]
+    partial class AddedLogging
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

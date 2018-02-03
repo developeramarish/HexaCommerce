@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Net;
 
-namespace WebAngularRAC.Filters
+namespace HexaCommerce.ActionFilters
 {
     public class UserAuthorizeAttribute : ActionFilterAttribute
     {

@@ -6,15 +6,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavMenuComponent implements OnInit {
     private data: any;
-    IsCustomerLoggedIn: boolean;
-    IsAdminCustomer: boolean;
+    ifCustomerLoggedIn: boolean;
+    ifAdminCustomer: boolean;
 
     constructor() { };
 
     ngOnInit() {
         const userJson = localStorage.getItem('currentCustomer');
-        this.IsCustomerLoggedIn = userJson !== null;
-        this.IsAdminCustomer = userJson !== null ? JSON.parse(userJson).isAdmin : null;
+        this.ifCustomerLoggedIn = userJson !== null;
+        this.ifAdminCustomer = userJson !== null ? JSON.parse(userJson).isAdmin : null;
     }
 }
 

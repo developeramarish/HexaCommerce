@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'admin-nav-menu',
-    templateUrl: './adminnavmenu.component.html',    
+    templateUrl: './admin-navmenu.component.html'
 })
 export class AdminNavMenuComponent {
 }
