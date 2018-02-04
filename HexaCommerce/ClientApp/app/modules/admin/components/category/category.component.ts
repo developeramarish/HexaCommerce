@@ -1,22 +1,20 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoryModel } from './category.model';
-import { CategoryService } from './category.service';
-import { BsModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { RepositoryService } from '../../../../shared/repository.service';
 
 @Component({
     selector: 'Category',
     templateUrl: './category.component.html',
-    providers: [CategoryService]
+    styleUrls: ['./category.component.css'],
+    providers: [RepositoryService]
 })
 export class CategoryComponent implements OnInit {
 
-    @ViewChild('modal') modal: BsModalComponent;
-    Categories: CategoryModel[];
+    categories: CategoryModel[];
     categoryFrm: FormGroup;
 
-    constructor(private _categoryService: CategoryService, private fb: FormBuilder) { }
+    constructor(private _repositoryService: RepositoryService, private fb: FormBuilder) { }
 
     ngOnInit() {
 
@@ -30,8 +28,8 @@ export class CategoryComponent implements OnInit {
             DisplayOrder: ['']
         });
 
-        this._categoryService.getAllCategories().subscribe(data => {
-            this.Categories = data
+        this._repositoryService.get("/api/admin/category").subscribe(data => {
+            this.categories = data
         }, error => {
             if (error) {
                 alert("Error")

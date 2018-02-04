@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing'
 import { BsModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { Ng2PaginationModule } from 'ng2-pagination'; //importing ng2-pagination
 
 //user pages
 import { AppComponent } from './modules/app/components/app/app.component';
@@ -36,7 +37,8 @@ import { AdminAppModuleShared } from './modules/admin/admin.shared.module';
         ReactiveFormsModule,
         AppRoutingModule,
         BsModalModule,
-        AdminAppModuleShared
+        AdminAppModuleShared,
+        Ng2PaginationModule
     ],
     bootstrap: [AppComponent]
 })

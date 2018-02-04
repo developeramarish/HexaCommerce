@@ -10,7 +10,9 @@ import { LoginService } from './login.service';
 
 export class LoginComponent {
     constructor(private _router: Router, private _loginService: LoginService) {
-        localStorage.removeItem("currentCustomer");
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem("currentCustomer");
+        }
     }
 
     LoginModel: LoginModel = new LoginModel();

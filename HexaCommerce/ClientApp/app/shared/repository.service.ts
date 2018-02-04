@@ -5,10 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { CategoryModel } from './category.model';
 
 @Injectable()
-export class CategoryService {
+export class RepositoryService {
 
     private token: string = "";
     private userJson: any;
@@ -18,30 +17,30 @@ export class CategoryService {
         this.token = this.userJson !== null ? JSON.parse(this.userJson).token : null;
     }
 
-    public getAllCategories = (): Observable<any> => {
+    public get = (apiUrl: string): Observable<any> => {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         headers.append('Token', this.token);
 
         let options = new RequestOptions({ headers: headers });
-        return this._http.get("admin/api/Category", options)
+        return this._http.get(apiUrl, options)
             .map((response: Response) => <any>response.json())
             .catch(this.handleError);
     }
 
-    public getCategoryById = (id: number): Observable<any> => {
+    public getById = (id: number, apiUrl: string): Observable<any> => {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         headers.append('Token', this.token);
 
         let options = new RequestOptions({ headers: headers });
-        return this._http.get("admin/api/Category/" + id, options)
+        return this._http.get(apiUrl + id, options)
             .map((response: Response) => <any>response.json())
             .catch(this.handleError);
     }
 
-    public addCategory = (categoryModel: CategoryModel): Observable<any> => {
+    public post = (model: any, apiUrl: string): Observable<any> => {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         headers.append('Token', this.token);
-        let body = JSON.stringify(categoryModel);
+        let body = JSON.stringify(model);
 
         let options = new RequestOptions({ headers: headers });
         return this._http.post("admin/api/Category/", body, options)
@@ -49,18 +48,21 @@ export class CategoryService {
             .catch(this.handleError);
     }
 
-    public updateCategory = (categoryModel: CategoryModel): Observable<any> => {
+    public put = (model: any, apiUrl: string): Observable<any> => {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         headers.append('Token', this.token);
-        let body = JSON.stringify(categoryModel);
+        let body = JSON.stringify(model);
 
         let options = new RequestOptions({ headers: headers });
-        return this._http.put("admin/api/Category/", body, options)
+        return this._http.put(apiUrl, body, options)
             .map((response: Response) => response)
             .catch(this.handleError);
     }
 
     private handleError(error: Response) {
+        if (error.status === 401) {
+            localStorage.removeItem("currentCustomer");
+        }
         alert("There is some issue in submitting form");
         return Observable.throw(error || 'Server error');
     }

@@ -1,14 +1,13 @@
 ﻿import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { CategoryModel } from './category.model';
-import { CategoryService } from './category.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-
+import { RepositoryService } from '../../../../shared/repository.service';
 
 @Component({
     selector: 'editCategory',
     templateUrl: './edit-category.component.html',
-    providers: [CategoryService]
+    providers: [RepositoryService]
 })
 export class EditCategoryComponent implements OnInit, OnDestroy {
 
@@ -18,7 +17,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
     action: string = "Add";
     private sub: any;
 
-    constructor(private _categoryService: CategoryService, private fb: FormBuilder, private _route: ActivatedRoute) { }
+    constructor(private _repositoryService: RepositoryService, private fb: FormBuilder, private _route: ActivatedRoute) { }
 
     ngOnInit(): void {
 
@@ -29,7 +28,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
         if (this.id) {
             this.action = "Edit";
 
-            this._categoryService.getCategoryById(this.id).subscribe(data => {
+            this._repositoryService.getById(this.id, "/api/admin/category").subscribe(data => {
                 this.Category = data
                 this.categoryFrm = this.fb.group({
                     Id: this.Category.Id,
@@ -64,10 +63,8 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
 
     onSubmit(categoryFrm: CategoryModel) {
 
-        console.log(categoryFrm);
-
         if (categoryFrm.Id > 0) {
-            this._categoryService.updateCategory(categoryFrm).subscribe(
+            this._repositoryService.put(categoryFrm, "").subscribe(
                 data => {
                     debugger;
                     console.log(data);
@@ -82,7 +79,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
             );
         }
         else {
-            this._categoryService.addCategory(categoryFrm).subscribe(
+            this._repositoryService.post(categoryFrm, "").subscribe(
                 data => {
                     if (data.status == 200) {
                         alert("Done");

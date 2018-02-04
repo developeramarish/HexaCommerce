@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AdminRoutingModule } from './adminapp.routing'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Ng2PaginationModule } from 'ng2-pagination'; //importing ng2-pagination https://ciphertrick.com/2016/10/19/simple-pagination-for-angular2-applications/
 
 //admin pages
 import { AdminAppComponent } from './components/adminapp/adminapp.component';
@@ -27,7 +28,8 @@ import { EditCategoryComponent } from './components/category/edit-category.compo
         HttpModule,
         FormsModule,    //added here too
         ReactiveFormsModule, //added here too
-        AdminRoutingModule
+        AdminRoutingModule,
+        Ng2PaginationModule
     ],
     bootstrap: [
         AdminAppComponent

@@ -20,3 +20,8 @@
 .marg-top20 {
     margin-top: 20px !important;
 }
+
+.pagination {
+    cursor: pointer;
+    float: right;
+}
