@@ -5,17 +5,19 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{08C620F3-0C8F-4CAC-8098-882BF39588D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexa.Core", "Hexa.Core\Hexa.Core.csproj", "{8EB7C994-F6D6-482A-AA4A-5C2A82E802F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexa.Core", "Libraries\Hexa.Core\Hexa.Core.csproj", "{8EB7C994-F6D6-482A-AA4A-5C2A82E802F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexa.Data", "Hexa.Data\Hexa.Data.csproj", "{89B821BC-38B4-41F2-8755-9E5B7D7EEF0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexa.Data", "Libraries\Hexa.Data\Hexa.Data.csproj", "{89B821BC-38B4-41F2-8755-9E5B7D7EEF0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexa.Service", "Hexa.Service\Hexa.Service.csproj", "{074EB1F3-78ED-42D8-BD42-F3BAC482B209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexa.Service", "Libraries\Hexa.Service\Hexa.Service.csproj", "{074EB1F3-78ED-42D8-BD42-F3BAC482B209}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexa.Business", "Hexa.Business\Hexa.Business.csproj", "{6DA584FB-A771-428F-8CDD-7EDF0454E153}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexa.Business", "Libraries\Hexa.Business\Hexa.Business.csproj", "{6DA584FB-A771-428F-8CDD-7EDF0454E153}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexaCommerce", "HexaCommerce\HexaCommerce.csproj", "{0945E2D9-0A8F-4270-AD79-B3627016B43F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hexa.DataDb.Test", "Tests\Hexa.DataDb.Test\Hexa.DataDb.Test.csproj", "{A01FFBAD-AFAA-4689-AF7E-4F292A3E6C2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexa.DataDb.Test", "Tests\Hexa.DataDb.Test\Hexa.DataDb.Test.csproj", "{A01FFBAD-AFAA-4689-AF7E-4F292A3E6C2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{678E8B61-1D43-4CF6-A647-F1B5B4CB4DCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{8EB7C994-F6D6-482A-AA4A-5C2A82E802F5} = {678E8B61-1D43-4CF6-A647-F1B5B4CB4DCD}
+		{89B821BC-38B4-41F2-8755-9E5B7D7EEF0A} = {678E8B61-1D43-4CF6-A647-F1B5B4CB4DCD}
+		{074EB1F3-78ED-42D8-BD42-F3BAC482B209} = {678E8B61-1D43-4CF6-A647-F1B5B4CB4DCD}
+		{6DA584FB-A771-428F-8CDD-7EDF0454E153} = {678E8B61-1D43-4CF6-A647-F1B5B4CB4DCD}
 		{A01FFBAD-AFAA-4689-AF7E-4F292A3E6C2B} = {08C620F3-0C8F-4CAC-8098-882BF39588D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

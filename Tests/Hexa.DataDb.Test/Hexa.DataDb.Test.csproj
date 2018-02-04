@@ -14,10 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Hexa.Business\Hexa.Business.csproj" />
-    <ProjectReference Include="..\..\Hexa.Core\Hexa.Core.csproj" />
-    <ProjectReference Include="..\..\Hexa.Data\Hexa.Data.csproj" />
-    <ProjectReference Include="..\..\Hexa.Service\Hexa.Service.csproj" />
+    <ProjectReference Include="..\..\Libraries\Hexa.Business\Hexa.Business.csproj" />
+    <ProjectReference Include="..\..\Libraries\Hexa.Core\Hexa.Core.csproj" />
+    <ProjectReference Include="..\..\Libraries\Hexa.Data\Hexa.Data.csproj" />
+    <ProjectReference Include="..\..\Libraries\Hexa.Service\Hexa.Service.csproj" />
   </ItemGroup>
 
 </Project>
