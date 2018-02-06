@@ -59,11 +59,20 @@ export class RepositoryService {
             .catch(this.handleError);
     }
 
+    public delete = (id: number, apiUrl: string): Observable<any> => {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        headers.append('Token', this.token);
+
+        let options = new RequestOptions({ headers: headers });
+        return this._http.delete(apiUrl + id, options)
+            .map((response: Response) => response)
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response) {
         if (error.status === 401) {
             localStorage.removeItem("currentCustomer");
         }
-        alert("There is some issue in submitting form");
-        return Observable.throw(error || 'Server error');
+        return "Error";
     }
 }

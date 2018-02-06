@@ -5,8 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing'
-import { BsModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
-import { Ng2PaginationModule } from 'ng2-pagination'; //importing ng2-pagination
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { GrowlModule } from 'primeng/growl';
 
 //user pages
 import { AppComponent } from './modules/app/components/app/app.component';
@@ -15,7 +16,6 @@ import { HomeComponent } from './modules/app/components/home/home.component';
 import { LoginComponent } from '../app/modules/app/components/login/login.component';
 import { LogoutComponent } from '../app/modules/app/components/login/logout.component';
 import { FooterComponent } from '../app/modules/app/components/footer/footer.component';
-
 import { AdminAppModuleShared } from './modules/admin/admin.shared.module';
 
 
@@ -36,11 +36,13 @@ import { AdminAppModuleShared } from './modules/admin/admin.shared.module';
         FormsModule,
         ReactiveFormsModule,
         AppRoutingModule,
-        BsModalModule,
+        NoopAnimationsModule,
+        ConfirmDialogModule,
+        GrowlModule,
         AdminAppModuleShared,
-        Ng2PaginationModule
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    providers: []
 })
 export class AppModuleShared {
 }

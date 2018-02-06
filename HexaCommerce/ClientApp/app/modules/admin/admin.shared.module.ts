@@ -4,7 +4,9 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AdminRoutingModule } from './adminapp.routing'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Ng2PaginationModule } from 'ng2-pagination'; //importing ng2-pagination https://ciphertrick.com/2016/10/19/simple-pagination-for-angular2-applications/
+import { DataTableModule } from 'primeng/datatable'
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { GrowlModule } from 'primeng/growl';
 
 //admin pages
 import { AdminAppComponent } from './components/adminapp/adminapp.component';
@@ -29,11 +31,14 @@ import { EditCategoryComponent } from './components/category/edit-category.compo
         FormsModule,    //added here too
         ReactiveFormsModule, //added here too
         AdminRoutingModule,
-        Ng2PaginationModule
+        DataTableModule,
+        ConfirmDialogModule,
+        GrowlModule,
     ],
     bootstrap: [
         AdminAppComponent
-    ]
+    ],
+    providers: []
 })
 export class AdminAppModuleShared {
 }

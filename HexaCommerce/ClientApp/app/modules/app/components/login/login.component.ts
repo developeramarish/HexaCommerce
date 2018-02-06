@@ -9,7 +9,9 @@ import { LoginService } from './login.service';
 })
 
 export class LoginComponent {
-    constructor(private _router: Router, private _loginService: LoginService) {
+    constructor(private _router: Router,
+        private _loginService: LoginService) {
+
         if (typeof window !== 'undefined') {
             localStorage.removeItem("currentCustomer");
         }
@@ -31,10 +33,12 @@ export class LoginComponent {
                 this.apiResponse = data;
                 if (this.apiResponse == null) {
                     this.errorMessage = "Invalid Username and Password";
+
                 }
                 else {
                     this.successMessage = "Logged in Successfully";
                     this._router.navigate(['Home']);
+
                 }
             },
             err => {

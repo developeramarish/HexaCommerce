@@ -1,28 +1,21 @@
-﻿<h3 class="title">Categories</h3>
-
-<button [routerLink]="['/Admin/AddCategory']" class="btn btn-primary pull-right">Add Category</button>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Active</th>
-            <th>Display Order</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of categories | paginate: {itemsPerPage: 10, currentPage:page};">
-            <td>{{item.Id}}</td>
-            <td>{{item.Name}}</td>
-            <td>{{item.Active ? 'Yes' : 'No'}}</td>
-            <td>{{item.DisplayOrder}}</td>
-            <td><a [routerLink]="['/Admin/EditCategory', item.Id]">Edit</a></td>
-        </tr>
-    </tbody>
-</table>
-<pagination-controls class="pagination pull-right curser-pointer" (pageChange)="page = $event"
-                     maxSize="5"
-                     directionLinks="true"
-                     autoHide="true">
-</pagination-controls>
+﻿<div class="col-md-6" style="z-index: 1000;">
+    <h3>Categories</h3>
+</div>
+<div class="col-md-6 marg-bottom10" style="z-index: 1000;">
+    <button [routerLink]="['/Admin/AddCategory']" class="btn btn-primary pull-right">Add Category</button>
+</div>
+<div>
+    <p-dataTable [value]="categories" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20,50]">
+        <p-column field="Id" header="Id" [sortable]="true"></p-column>
+        <p-column field="Name" header="Name" [sortable]="true"></p-column>
+        <p-column field="Active" header="Active" [sortable]="true"></p-column>
+        <p-column field="DisplayOrder" header="DisplayOrder" [sortable]="true"></p-column>
+        <p-column styleClass="col-button">
+            <ng-template let-category="rowData" pTemplate="body">
+                <a class="btn btn-default" [routerLink]="['/Admin/EditCategory', category.Id]">Edit</a>
+                <a class="btn btn-default" (click)="confirmDelete(category.Id)">Delete</a>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+</div>
+<p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>

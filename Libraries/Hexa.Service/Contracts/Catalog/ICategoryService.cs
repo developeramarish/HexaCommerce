@@ -5,7 +5,7 @@ namespace Hexa.Service.Contracts.Catalog
 {
     public interface ICategoryService
     {
-        void DeleteCategory(CategoryModel category);
+        void DeleteCategory(int id);
 
         CategoryModel GetCategoryById(int categoryId);
 

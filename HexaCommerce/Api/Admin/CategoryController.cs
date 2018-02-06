@@ -59,12 +59,12 @@ namespace HexaCommerce.Api.Admin
         }
         
         // DELETE: api/ApiWithActions/5
-        [HttpDelete]
-        public IActionResult Delete([FromBody]CategoryModel model)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
             try
             {
-                _categoryService.DeleteCategory(model);
+                _categoryService.DeleteCategory(id);
                 return Ok();
             }
             catch (Exception)

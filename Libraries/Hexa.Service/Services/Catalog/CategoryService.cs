@@ -29,11 +29,12 @@ namespace Hexa.Service.Services.Catalog
 
         #region Methods
 
-        public void DeleteCategory(CategoryModel category)
+        public void DeleteCategory(int id)
         {
-            if (category == null)
+            if (id == 0)
                 throw new ArgumentNullException("category");
 
+            var category = GetCategoryById(id);
             category.Deleted = true;
             UpdateCategory(category);
         }

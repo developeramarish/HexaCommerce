@@ -10,7 +10,8 @@ export class AppComponent {
     ifCustomerLoggedIn: boolean;
     ifAdminCustomer: boolean;
 
-    constructor() { };
+    constructor() {
+    };
 
     ngOnInit() {
         const userJson = localStorage.getItem('currentCustomer');

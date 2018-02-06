@@ -33,7 +33,7 @@ namespace Hexa.Data
         /// <returns></returns>
         public virtual T GetById(int id)
         {
-            return this.Entities.Find(id);
+            return Entities.AsNoTracking().FirstOrDefault(i => i.Id == id);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Hexa.Data
         {
             try
             {
-                if(entity == null)
+                if (entity == null)
                     throw new ArgumentNullException("entity");
 
                 Entities.Update(entity);

@@ -3,12 +3,14 @@ import { CategoryModel } from './category.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RepositoryService } from '../../../../shared/repository.service';
+import { Message } from 'primeng/api';
 
 @Component({
     selector: 'editCategory',
     templateUrl: './edit-category.component.html',
     providers: [RepositoryService]
 })
+
 export class EditCategoryComponent implements OnInit, OnDestroy {
 
     Category: CategoryModel;
@@ -16,8 +18,13 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
     id: number;
     action: string = "Add";
     private sub: any;
+    msgs: Message[] = [];
 
-    constructor(private _repositoryService: RepositoryService, private fb: FormBuilder, private _route: ActivatedRoute) { }
+    constructor(private _repositoryService: RepositoryService,
+        private fb: FormBuilder,
+        private _route: ActivatedRoute)
+    {
+    }
 
     ngOnInit(): void {
 
@@ -28,7 +35,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
         if (this.id) {
             this.action = "Edit";
 
-            this._repositoryService.getById(this.id, "/api/admin/category").subscribe(data => {
+            this._repositoryService.getById(this.id, "/admin/api/category/").subscribe(data => {
                 this.Category = data
                 this.categoryFrm = this.fb.group({
                     Id: this.Category.Id,
@@ -64,28 +71,29 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
     onSubmit(categoryFrm: CategoryModel) {
 
         if (categoryFrm.Id > 0) {
-            this._repositoryService.put(categoryFrm, "").subscribe(
+            this._repositoryService.put(categoryFrm, "/admin/api/category").subscribe(
                 data => {
-                    debugger;
-                    console.log(data);
-
                     if (data.status == 200) {
-                        alert("Done");
+                        this.msgs = [];
+                        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Category Updated' });
                     }
                     else {
-                        alert("There is some issue in submitting form")
+                        this.msgs = [];
+                        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in Updating Category' });
                     }
                 }
             );
         }
         else {
-            this._repositoryService.post(categoryFrm, "").subscribe(
+            this._repositoryService.post(categoryFrm, "/admin/api/category").subscribe(
                 data => {
                     if (data.status == 200) {
-                        alert("Done");
+                        this.msgs = [];
+                        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'New Category Added' });
                     }
                     else {
-                        alert("There is some issue in submitting form")
+                        this.msgs = [];
+                        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in Adding new Category' });
                     }
                 }
             );
