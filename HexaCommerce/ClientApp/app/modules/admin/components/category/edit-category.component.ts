@@ -13,7 +13,8 @@ import { Message } from 'primeng/api';
 
 export class EditCategoryComponent implements OnInit, OnDestroy {
 
-    Category: CategoryModel;
+    category: CategoryModel;
+    categories: CategoryModel[];
     categoryFrm: FormGroup;
     id: number;
     action: string = "Add";
@@ -22,8 +23,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
 
     constructor(private _repositoryService: RepositoryService,
         private fb: FormBuilder,
-        private _route: ActivatedRoute)
-    {
+        private _route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
@@ -32,20 +32,25 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
             this.id = +params['id'];
         });
 
+        this._repositoryService.get("/admin/api/category/").subscribe(data => {
+            this.categories = data;
+        });
+
         if (this.id) {
             this.action = "Edit";
 
             this._repositoryService.getById(this.id, "/admin/api/category/").subscribe(data => {
-                this.Category = data
+                this.category = data
                 this.categoryFrm = this.fb.group({
-                    Id: this.Category.Id,
-                    Name: this.Category.Name,
-                    Description: [this.Category.Description, Validators.required],
-                    ParentCategoryId: [this.Category.ParentCategoryId],
-                    IncludeInNavigation: [this.Category.IncludeInNavigation],
-                    Active: [this.Category.Active],
-                    Deleted: [this.Category.Deleted],
-                    DisplayOrder: [this.Category.DisplayOrder]
+                    Id: this.category.Id,
+                    Name: this.category.Name,
+                    Description: [this.category.Description, Validators.required],
+                    ParentCategoryId: [this.category.ParentCategoryId],
+                    IncludeInNavigation: [this.category.IncludeInNavigation],
+                    Active: [this.category.Active],
+                    Deleted: [this.category.Deleted],
+                    DisplayOrder: [this.category.DisplayOrder],
+                    SelectedParentCategory: [this.categories.filter(a => a.Id == this.category.ParentCategoryId)[0]]
                 });
             }, error => {
                 if (error) {
@@ -63,13 +68,14 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
                 IncludeInNavigation: [true],
                 Active: [true],
                 Deleted: [false],
-                DisplayOrder: [0]
+                DisplayOrder: [0],
+                SelectedParentCategory: []
             });
         }
     }
 
-    onSubmit(categoryFrm: CategoryModel) {
-
+    onSubmit(categoryFrm: any) {
+        categoryFrm.ParentCategoryId = categoryFrm.SelectedParentCategory.Id;
         if (categoryFrm.Id > 0) {
             this._repositoryService.put(categoryFrm, "/admin/api/category").subscribe(
                 data => {

@@ -3,6 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Pipe, PipeTransform } from '@angular/core'; 
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';

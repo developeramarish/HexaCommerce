@@ -43,7 +43,6 @@ export class CategoryComponent implements OnInit {
             message: 'Are you sure that you want to delete this category?',
             accept: () => {
                 //Actual logic to perform a confirmation
-                console.log(id);
                 this._repositoryService.delete(id, "/admin/api/category/").subscribe(data => {
                     this.ngOnInit();
                 }, error => {

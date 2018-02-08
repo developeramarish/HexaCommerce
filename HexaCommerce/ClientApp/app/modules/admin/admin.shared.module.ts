@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule } from 'primeng/datatable'
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { GrowlModule } from 'primeng/growl';
+import { DropdownModule } from 'primeng/dropdown';
+import { EditorModule } from 'primeng/editor';
 
 //admin pages
 import { AdminAppComponent } from './components/adminapp/adminapp.component';
@@ -34,6 +36,8 @@ import { EditCategoryComponent } from './components/category/edit-category.compo
         DataTableModule,
         ConfirmDialogModule,
         GrowlModule,
+        DropdownModule,
+        EditorModule
     ],
     bootstrap: [
         AdminAppComponent
