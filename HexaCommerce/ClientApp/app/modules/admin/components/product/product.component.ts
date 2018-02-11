@@ -1,27 +1,27 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { CategoryModel } from './category.model';
+import { ProductModel } from './product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RepositoryService } from '../../../../shared/repository.service';
 import { ConfirmationService } from 'primeng/api';
+import { Message } from 'primeng/api';
 
 @Component({
-    selector: 'Category',
-    templateUrl: './category.component.html',
-    styleUrls: ['./category.component.css'],
+    selector: 'products',
+    templateUrl: './product.component.html',
+    styleUrls: ['./product.component.css'],
     providers: [RepositoryService, ConfirmationService]
 })
-export class CategoryComponent implements OnInit {
+export class ProductComponent implements OnInit {
 
-    categories: CategoryModel[];
-    categoryFrm: FormGroup;
+    products: ProductModel[];
+    productFrm: FormGroup;
+    msgs: Message[] = [];
 
-    constructor(private _repositoryService: RepositoryService, private fb: FormBuilder, private _confirmationService: ConfirmationService)
-    {
-    }
+    constructor(private _repositoryService: RepositoryService, private fb: FormBuilder, private _confirmationService: ConfirmationService) { }
 
     ngOnInit() {
 
-        this.categoryFrm = this.fb.group({
+        this.productFrm = this.fb.group({
             Name: [''],
             Description: ['', Validators.required],
             ParentCategoryId: [''],
@@ -32,10 +32,11 @@ export class CategoryComponent implements OnInit {
         });
 
         this._repositoryService.get("/admin/api/category/").subscribe(data => {
-            this.categories = data
+            this.products = data
         }, error => {
             if (error) {
-                alert("Error")
+                this.msgs = [];
+                this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in loading products...' });
             }
         });
     }
@@ -49,7 +50,8 @@ export class CategoryComponent implements OnInit {
                     this.ngOnInit();
                 }, error => {
                     if (error) {
-                        alert("Error")
+                        this.msgs = [];
+                        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in deleting product...' });
                     }
                 });
             }

@@ -31,6 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\style.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\app\guards\auth.adminguard.ts" />
     <None Remove="ClientApp\app\guards\auth.guard.ts" />
     <None Remove="ClientApp\app\modules\admin\admin.module.ts" />
@@ -41,11 +45,15 @@
     <None Remove="ClientApp\app\modules\admin\components\category\edit-category.component.ts" />
     <None Remove="ClientApp\app\modules\admin\components\dashboard\admin.routing.ts" />
     <None Remove="ClientApp\app\modules\admin\components\dashboard\dashboard.component.ts" />
+    <None Remove="ClientApp\app\modules\admin\components\product\edit-product.component.ts" />
+    <None Remove="ClientApp\app\modules\admin\components\product\product.component.ts" />
+    <None Remove="ClientApp\app\modules\admin\components\product\product.model.ts" />
     <None Remove="ClientApp\app\modules\app\app.routing.ts" />
     <None Remove="ClientApp\app\modules\app\components\login\login.component.ts" />
     <None Remove="ClientApp\app\modules\app\components\login\login.model.ts" />
     <None Remove="ClientApp\app\modules\app\components\login\login.service.ts" />
     <None Remove="ClientApp\app\modules\app\components\login\logout.component.ts" />
+    <None Remove="ClientApp\app\shared\picture.model.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,8 +61,12 @@
     <TypeScriptCompile Include="ClientApp\app\guards\auth.adminguard.ts" />
     <TypeScriptCompile Include="ClientApp\app\guards\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\adminapp.routing.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\admin\components\product\product.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\admin\components\product\product.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\admin\components\product\edit-product.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\edit-category.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\category.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\picture.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\repository.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\category.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\dashboard\dashboard.component.ts" />
@@ -75,6 +87,11 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\Shared\" />
+    <Folder Include="wwwroot\Images\Thumbnails\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\style.css" />
   </ItemGroup>
 
   <ItemGroup>

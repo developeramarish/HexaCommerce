@@ -1,4 +1,5 @@
-﻿using Hexa.Business.Models.Shared;
+﻿using Hexa.Business.Models.Pictures;
+using Hexa.Business.Models.Shared;
 
 namespace Hexa.Business.Models.Catalog
 {
@@ -8,7 +9,7 @@ namespace Hexa.Business.Models.Catalog
 
         public string Description { get; set; }
 
-        public string PictureId { get; set; }
+        public int PictureId { get; set; }
 
         public int ParentCategoryId { get; set; }
 
@@ -19,5 +20,7 @@ namespace Hexa.Business.Models.Catalog
         public bool Deleted { get; set; }
 
         public int DisplayOrder { get; set; }
+
+        public PictureModel Picture { get; set; }
     }
 }

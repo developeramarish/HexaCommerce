@@ -11,8 +11,8 @@ using System;
 namespace Hexa.Data.Migrations
 {
     [DbContext(typeof(HexaDbContext))]
-    [Migration("20180202164332_AddedLogging")]
-    partial class AddedLogging
+    [Migration("20180211091059_RemovedPictureNavigationFromCategory")]
+    partial class RemovedPictureNavigationFromCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,7 +44,7 @@ namespace Hexa.Data.Migrations
 
                     b.Property<int>("ParentCategoryId");
 
-                    b.Property<string>("PictureId");
+                    b.Property<int>("PictureId");
 
                     b.Property<int?>("UpdatedBy");
 
@@ -203,6 +203,26 @@ namespace Hexa.Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Logs");
+                });
+
+            modelBuilder.Entity("Hexa.Core.Domain.Pictures.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedOn");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("Hexa.Core.Domain.Customers.CustomerCustomerRole", b =>

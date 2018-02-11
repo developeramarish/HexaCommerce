@@ -16,14 +16,23 @@ using Hexa.Core.Domain.Catalog;
 using Hexa.Core.Domain.Logs;
 using Hexa.Service.Contracts.Logs;
 using Hexa.Service.Services.Logs;
+using Microsoft.Extensions.FileProviders;
+using System.Reflection;
+using Hexa.Service.Contracts.Pictures;
+using Hexa.Service.Services.Pictures;
+using Hexa.Core.Domain.Pictures;
 
 namespace HexaCommerce
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IHostingEnvironment _hostingEnvironment;
+
+        public Startup(IConfiguration configuration,
+            IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IConfiguration Configuration { get; }
@@ -45,9 +54,22 @@ namespace HexaCommerce
             services.AddTransient<IHexaRepository<TokenManager>, HexaRepository<TokenManager>>();
             services.AddTransient<IHexaRepository<Category>, HexaRepository<Category>>();
             services.AddTransient<IHexaRepository<Log>, HexaRepository<Log>>();
+            services.AddTransient<IHexaRepository<Picture>, HexaRepository<Picture>>();
+            services.AddTransient<IHexaRepository<Product>, HexaRepository<Product>>();
+            services.AddTransient<IHexaRepository<ProductCategoryMapping>, HexaRepository<ProductCategoryMapping>>();
+            services.AddTransient<IHexaRepository<ProductPictureMapping>, HexaRepository<ProductPictureMapping>>();
+
+
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ILogService, LogService>();
+            services.AddTransient<IPictureService, PictureService>();
+            services.AddTransient<IProductService, ProductService>();
+
+            var physicalProvider = _hostingEnvironment.ContentRootFileProvider;
+            var embeddedProvider = new EmbeddedFileProvider(Assembly.GetEntryAssembly());
+            var compositeProvider = new CompositeFileProvider(physicalProvider, embeddedProvider);
+            services.AddSingleton<IFileProvider>(compositeProvider);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

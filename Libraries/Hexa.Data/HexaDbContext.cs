@@ -1,6 +1,7 @@
 ﻿using Hexa.Core.Domain.Catalog;
 using Hexa.Core.Domain.Customers;
 using Hexa.Core.Domain.Logs;
+using Hexa.Core.Domain.Pictures;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Hexa.Data
         public DbSet<TokenManager> TokenManager { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
 
         public HexaDbContext(DbContextOptions<HexaDbContext> options) : base(options)
         { }

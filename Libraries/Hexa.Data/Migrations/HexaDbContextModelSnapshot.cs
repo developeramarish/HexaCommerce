@@ -43,7 +43,7 @@ namespace Hexa.Data.Migrations
 
                     b.Property<int>("ParentCategoryId");
 
-                    b.Property<string>("PictureId");
+                    b.Property<int>("PictureId");
 
                     b.Property<int?>("UpdatedBy");
 
@@ -202,6 +202,26 @@ namespace Hexa.Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Logs");
+                });
+
+            modelBuilder.Entity("Hexa.Core.Domain.Pictures.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedOn");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("Hexa.Core.Domain.Customers.CustomerCustomerRole", b =>

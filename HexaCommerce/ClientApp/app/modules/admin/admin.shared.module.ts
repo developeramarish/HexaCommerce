@@ -9,6 +9,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { GrowlModule } from 'primeng/growl';
 import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
+import { FileUploadModule } from 'primeng/fileupload';
 
 //admin pages
 import { AdminAppComponent } from './components/adminapp/adminapp.component';
@@ -16,6 +17,8 @@ import { AdminNavMenuComponent } from './components/admin-navmenu/admin-navmenu.
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CategoryComponent } from './components/category/category.component';
 import { EditCategoryComponent } from './components/category/edit-category.component';
+import { ProductComponent } from './components/product/product.component';
+import { EditProductComponent } from './components/product/edit-product.component';
 
 
 @NgModule({
@@ -25,7 +28,9 @@ import { EditCategoryComponent } from './components/category/edit-category.compo
         AdminNavMenuComponent,
         DashboardComponent,
         CategoryComponent,
-        EditCategoryComponent
+        EditCategoryComponent,
+        ProductComponent,
+        EditProductComponent
     ],
     imports: [
         CommonModule,
@@ -37,7 +42,8 @@ import { EditCategoryComponent } from './components/category/edit-category.compo
         ConfirmDialogModule,
         GrowlModule,
         DropdownModule,
-        EditorModule
+        EditorModule,
+        FileUploadModule
     ],
     bootstrap: [
         AdminAppComponent

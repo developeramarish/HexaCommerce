@@ -1,4 +1,5 @@
-﻿using Hexa.Core.Domain.Shared;
+﻿using Hexa.Core.Domain.Pictures;
+using Hexa.Core.Domain.Shared;
 
 namespace Hexa.Core.Domain.Catalog
 {
@@ -8,7 +9,7 @@ namespace Hexa.Core.Domain.Catalog
 
         public string Description { get; set; }
 
-        public string PictureId { get; set; }
+        public int PictureId { get; set; }
 
         public int ParentCategoryId { get; set; }
 
@@ -18,6 +19,6 @@ namespace Hexa.Core.Domain.Catalog
 
         public bool Deleted { get; set; }
 
-        public int DisplayOrder { get; set; }        
+        public int DisplayOrder { get; set; }       
     }
 }

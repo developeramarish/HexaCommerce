@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/HexaCommerce/wwwroot/Images/Thumbnails/39dc2ceb-c027-4fba-881c-fe1463713ab1.jpg
+/HexaCommerce/wwwroot/Images/Thumbnails/f160ea4c-358b-4dec-9425-56c4827ee4b5.jpg

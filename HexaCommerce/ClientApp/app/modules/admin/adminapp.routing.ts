@@ -8,6 +8,8 @@ import { AdminNavMenuComponent } from './components/admin-navmenu/admin-navmenu.
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CategoryComponent } from './components/category/category.component';
 import { EditCategoryComponent } from './components/category/edit-category.component';
+import { ProductComponent } from './components/product/product.component';
+import { EditProductComponent } from './components/product/edit-product.component';
 
 const routes: Routes = [
     {
@@ -18,6 +20,9 @@ const routes: Routes = [
             { path: 'Category', component: CategoryComponent },
             { path: 'AddCategory', component: EditCategoryComponent },
             { path: 'EditCategory/:id', component: EditCategoryComponent },
+            { path: 'Product', component: ProductComponent },
+            { path: 'AddProduct', component: EditProductComponent},
+            { path: 'EditProduct/:id', component: EditProductComponent},
         ]
     },
     {

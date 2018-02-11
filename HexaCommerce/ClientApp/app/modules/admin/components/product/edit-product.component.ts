@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { CategoryModel } from './category.model';
+import { ProductModel } from './product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RepositoryService } from '../../../../shared/repository.service';
@@ -7,16 +7,16 @@ import { Message } from 'primeng/api';
 import { PictureModel } from '../../../../shared/picture.model';
 
 @Component({
-    selector: 'editCategory',
-    templateUrl: './edit-category.component.html',
+    selector: 'editProduct',
+    templateUrl: './edit-product.component.html',
     providers: [RepositoryService]
 })
 
-export class EditCategoryComponent implements OnInit, OnDestroy {
+export class EditProductComponent implements OnInit, OnDestroy {
 
-    category: CategoryModel;
-    categories: CategoryModel[];
-    categoryFrm: FormGroup;
+    product: ProductModel;
+    products: ProductModel[];
+    productFrm: FormGroup;
     id: number;
     action: string = "Add";
     private sub: any;
@@ -32,53 +32,53 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
-        this.sub = this._route.params.subscribe(params => {
-            this.id = +params['id'];
-        });
+        //this.sub = this._route.params.subscribe(params => {
+        //    this.id = +params['id'];
+        //});
 
-        this._repositoryService.get("/admin/api/category/").subscribe(data => {
-            this.categories = data;
-        });
+        //this._repositoryService.get("/admin/api/product/").subscribe(data => {
+        //    this.products = data;
+        //});
 
-        if (this.id) {
-            this.action = "Edit";
+        //if (this.id) {
+        //    this.action = "Edit";
 
-            this._repositoryService.getById(this.id, "/admin/api/category/").subscribe(data => {
-                this.category = data;
-                this.categoryFrm = this.fb.group({
-                    Id: this.category.Id,
-                    Name: this.category.Name,
-                    Description: [this.category.Description, Validators.required],
-                    ParentCategoryId: [this.category.ParentCategoryId],
-                    IncludeInNavigation: [this.category.IncludeInNavigation],
-                    Active: [this.category.Active],
-                    Deleted: [this.category.Deleted],
-                    DisplayOrder: [this.category.DisplayOrder],
-                    PictureId: [this.category.PictureId]
-                });
-                this.pictureModel = data.Picture;
-            }, error => {
-                if (error) {
-                    this.msgs = [];
-                    this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in loading category...' });
-                }
-            });
+        //    this._repositoryService.getById(this.id, "/admin/api/category/").subscribe(data => {
+        //        this.product = data;
+        //        this.productFrm = this.fb.group({
+        //            Id: this.product.Id,
+        //            Name: this.product.Name,
+        //            Description: [this.product.ShortDescription, Validators.required],
+        //            ParentCategoryId: [this.product.ParentCategoryId],
+        //            IncludeInNavigation: [this.category.IncludeInNavigation],
+        //            Active: [this.category.Active],
+        //            Deleted: [this.category.Deleted],
+        //            DisplayOrder: [this.category.DisplayOrder],
+        //            PictureId: [this.category.PictureId]
+        //        });
+        //        this.pictureModel = data.Picture;
+        //    }, error => {
+        //        if (error) {
+        //            this.msgs = [];
+        //            this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in loading category...' });
+        //        }
+        //    });
 
-        }
-        else {
-            this.categoryFrm = this.fb.group({
-                Id: 0,
-                Name: ['', Validators.required],
-                Description: ['', Validators.required],
-                ParentCategoryId: [],
-                IncludeInNavigation: [true],
-                Active: [true],
-                Deleted: [false],
-                DisplayOrder: [0],
-                SelectedParentCategory: [],
-                PictureId: []
-            });
-        }
+        //}
+        //else {
+        //    this.categoryFrm = this.fb.group({
+        //        Id: 0,
+        //        Name: ['', Validators.required],
+        //        Description: ['', Validators.required],
+        //        ParentCategoryId: [],
+        //        IncludeInNavigation: [true],
+        //        Active: [true],
+        //        Deleted: [false],
+        //        DisplayOrder: [0],
+        //        SelectedParentCategory: [],
+        //        PictureId: []
+        //    });
+        //}
     }
 
     onSubmit(categoryFrm: any) {

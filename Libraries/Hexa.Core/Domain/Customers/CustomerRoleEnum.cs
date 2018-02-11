@@ -9,11 +9,11 @@ namespace Hexa.Core.Domain.Customers
         /// <summary>
         /// Default Admin role 
         /// </summary>
-        Admin = 151,
+        Admin = 1,
 
         /// <summary>
         /// Default user role
         /// </summary>
-        Registered = 152
+        Registered = 2
     }
 }

@@ -72,6 +72,7 @@ export class RepositoryService {
     private handleError(error: Response) {
         if (error.status === 401) {
             localStorage.removeItem("currentCustomer");
+            this._router.navigate(["Login"]);
         }
         return "Error";
     }

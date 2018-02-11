@@ -11,8 +11,8 @@ using System;
 namespace Hexa.Data.Migrations
 {
     [DbContext(typeof(HexaDbContext))]
-    [Migration("20180126183052_DatabaseInitV1")]
-    partial class DatabaseInitV1
+    [Migration("20180211090257_InitialDatabse")]
+    partial class InitialDatabse
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,42 @@ namespace Hexa.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Hexa.Core.Domain.Catalog.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Active");
+
+                    b.Property<int?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedOn");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("DisplayOrder");
+
+                    b.Property<bool>("IncludeInNavigation");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ParentCategoryId");
+
+                    b.Property<int>("PictureId");
+
+                    b.Property<int?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PictureId");
+
+                    b.ToTable("Categories");
+                });
 
             modelBuilder.Entity("Hexa.Core.Domain.Customers.Customer", b =>
                 {
@@ -139,6 +175,66 @@ namespace Hexa.Data.Migrations
                     b.ToTable("TokenManager");
                 });
 
+            modelBuilder.Entity("Hexa.Core.Domain.Logs.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedOn");
+
+                    b.Property<int?>("CustomerId");
+
+                    b.Property<string>("FullMessage");
+
+                    b.Property<string>("IpAddress");
+
+                    b.Property<string>("PageReferrer");
+
+                    b.Property<string>("PageUrl");
+
+                    b.Property<string>("ShortMessage");
+
+                    b.Property<int?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Logs");
+                });
+
+            modelBuilder.Entity("Hexa.Core.Domain.Pictures.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedOn");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOn");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pictures");
+                });
+
+            modelBuilder.Entity("Hexa.Core.Domain.Catalog.Category", b =>
+                {
+                    b.HasOne("Hexa.Core.Domain.Pictures.Picture", "Picture")
+                        .WithMany()
+                        .HasForeignKey("PictureId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Hexa.Core.Domain.Customers.CustomerCustomerRole", b =>
                 {
                     b.HasOne("Hexa.Core.Domain.Customers.Customer", "Customer")
@@ -158,6 +254,13 @@ namespace Hexa.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Hexa.Core.Domain.Logs.Log", b =>
+                {
+                    b.HasOne("Hexa.Core.Domain.Customers.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
                 });
 #pragma warning restore 612, 618
         }

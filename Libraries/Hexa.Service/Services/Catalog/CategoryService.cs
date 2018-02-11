@@ -3,6 +3,7 @@ using Hexa.Business.Models.Catalog;
 using Hexa.Core.Data;
 using Hexa.Core.Domain.Catalog;
 using Hexa.Service.Contracts.Catalog;
+using Hexa.Service.Contracts.Pictures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,17 @@ namespace Hexa.Service.Services.Catalog
         #region Fields
 
         private readonly IHexaRepository<Category> _categoryRepository;
+        private readonly IPictureService _pictureService;
 
         #endregion
 
         #region Ctor
 
         public CategoryService(IHexaRepository<Category> categoryRepository,
-            IMapper mapper)
+            IPictureService pictureService)
         {
             _categoryRepository = categoryRepository;
+            _pictureService = pictureService;
         }
 
         #endregion
@@ -44,7 +47,13 @@ namespace Hexa.Service.Services.Catalog
             if (categoryId == 0)
                 return null;
 
-            return Mapper.Map<CategoryModel>(_categoryRepository.GetById(categoryId));
+            var result = Mapper.Map<CategoryModel>(_categoryRepository.GetById(categoryId));
+            if (result != null && result.PictureId > 0)
+            {
+                result.Picture = _pictureService.GetPictureById(result.PictureId);
+            }
+
+            return result;
         }
 
         public void InsertCategory(CategoryModel category)
