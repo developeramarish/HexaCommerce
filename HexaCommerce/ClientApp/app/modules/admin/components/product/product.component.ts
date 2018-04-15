@@ -43,7 +43,7 @@ export class ProductComponent implements OnInit {
 
     confirmDelete(id: number) {
         this._confirmationService.confirm({
-            message: 'Are you sure that you want to delete this category?',
+            message: 'Are you sure that you want to delete this product?',
             accept: () => {
                 //Actual logic to perform a confirmation
                 this._repositoryService.delete(id, "/admin/api/category/").subscribe(data => {

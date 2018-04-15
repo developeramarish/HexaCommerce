@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Hexa.Data.DataMapping.Catalog
 {
-    public partial class CategoryMap : IEntityTypeConfiguration<Category>
+    public partial class ProductCategoryMap : IEntityTypeConfiguration<ProductCategoryMapping>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<ProductCategoryMapping> builder)
         {
-            builder.ToTable("Category");
+            builder.ToTable("ProductCategoryMapping");
             builder.HasKey(c => c.Id);
-            builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
             builder.Property(c => c.CreatedOn).HasDefaultValueSql("GETDATE()");
         }
     }

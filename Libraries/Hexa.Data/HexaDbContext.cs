@@ -18,6 +18,9 @@ namespace Hexa.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<Picture> Pictures { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategoryMapping> ProductCategories { get; set; }
+        public DbSet<ProductPictureMapping> ProductPictures { get; set; }
 
         public HexaDbContext(DbContextOptions<HexaDbContext> options) : base(options)
         { }
