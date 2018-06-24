@@ -32,81 +32,79 @@ export class EditProductComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
-        //this.sub = this._route.params.subscribe(params => {
-        //    this.id = +params['id'];
-        //});
+        this.sub = this._route.params.subscribe(params => {
+            this.id = +params['id'];
+        });
 
-        //this._repositoryService.get("/admin/api/product/").subscribe(data => {
-        //    this.products = data;
-        //});
+        this._repositoryService.get("/admin/api/product/").subscribe(data => {
+            this.products = data;
+        });
 
-        //if (this.id) {
-        //    this.action = "Edit";
+        if (this.id) {
+            this.action = "Edit";
 
-        //    this._repositoryService.getById(this.id, "/admin/api/category/").subscribe(data => {
-        //        this.product = data;
-        //        this.productFrm = this.fb.group({
-        //            Id: this.product.Id,
-        //            Name: this.product.Name,
-        //            Description: [this.product.ShortDescription, Validators.required],
-        //            ParentCategoryId: [this.product.ParentCategoryId],
-        //            IncludeInNavigation: [this.category.IncludeInNavigation],
-        //            Active: [this.category.Active],
-        //            Deleted: [this.category.Deleted],
-        //            DisplayOrder: [this.category.DisplayOrder],
-        //            PictureId: [this.category.PictureId]
-        //        });
-        //        this.pictureModel = data.Picture;
-        //    }, error => {
-        //        if (error) {
-        //            this.msgs = [];
-        //            this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in loading category...' });
-        //        }
-        //    });
+            this._repositoryService.getById(this.id, "/admin/api/product/").subscribe(data => {
+                this.product = data;
+                this.productFrm = this.fb.group({
+                    Id: this.product.Id,
+                    Name: this.product.Name,
+                    ShortDescription: [this.product.ShortDescription, Validators.required],
+                    FullDescription: [this.product.FullDescription],
+                    ShowOnHomePage: [this.product.ShowOnHomePage],
+                    Price: [this.product.Price],
+                    Deleted: [this.product.Deleted],
+                    Published: [this.product.Published],
+                    DisplayOrder: [this.product.DisplayOrder]
+                });
+                this.pictureModel = data.Picture;
+            }, error => {
+                if (error) {
+                    this.msgs = [];
+                    this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in loading product...' });
+                }
+            });
 
-        //}
-        //else {
-        //    this.categoryFrm = this.fb.group({
-        //        Id: 0,
-        //        Name: ['', Validators.required],
-        //        Description: ['', Validators.required],
-        //        ParentCategoryId: [],
-        //        IncludeInNavigation: [true],
-        //        Active: [true],
-        //        Deleted: [false],
-        //        DisplayOrder: [0],
-        //        SelectedParentCategory: [],
-        //        PictureId: []
-        //    });
-        //}
+        }
+        else {
+            this.productFrm = this.fb.group({
+                Id: 0,
+                Name: ['', Validators.required],
+                ShortDescription: ['', Validators.required],
+                FullDescription: '',
+                ShowOnHomePage: true,
+                Price: [0, Validators.required],
+                Deleted: false,
+                Published: true,
+                DisplayOrder: 0
+            });
+        }
     }
 
-    onSubmit(categoryFrm: any) {
-        categoryFrm.PictureId = this.pictureId;
-        if (categoryFrm.Id > 0) {
-            this._repositoryService.put(categoryFrm, "/admin/api/category").subscribe(
+    onSubmit(productFrm: any) {
+        if (productFrm.Id > 0) {
+            this._repositoryService.put(productFrm, "/admin/api/product").subscribe(
                 data => {
                     if (data.status == 200) {
                         this.msgs = [];
-                        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Category Updated' });
+                        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Updated' });
                     }
                     else {
                         this.msgs = [];
-                        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in Updating Category' });
+                        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in Updating Product' });
                     }
                 }
             );
         }
         else {
-            this._repositoryService.post(categoryFrm, "/admin/api/category").subscribe(
+            this._repositoryService.post(productFrm, "/admin/api/product").subscribe(
                 data => {
                     if (data.status == 200) {
                         this.msgs = [];
-                        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'New Category Added' });
+                        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'New Product Added' });
                     }
                     else {
                         this.msgs = [];
-                        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in Adding new Category' });
+                        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error in Adding new Product' });
                     }
                 }
             );
@@ -119,7 +117,7 @@ export class EditProductComponent implements OnInit, OnDestroy {
 
         this.pictureId = event.xhr.response;
         this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: 'Picture Uploaded, Please Save Category', detail: '' });
+        this.msgs.push({ severity: 'info', summary: 'Picture Uploaded, Please Save Product', detail: '' });
     }
 
     ngOnDestroy(): void {

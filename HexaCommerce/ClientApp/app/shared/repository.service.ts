@@ -43,7 +43,7 @@ export class RepositoryService {
         let body = JSON.stringify(model);
 
         let options = new RequestOptions({ headers: headers });
-        return this._http.post("admin/api/Category/", body, options)
+        return this._http.post(apiUrl, body, options)
             .map((response: Response) => response)
             .catch(this.handleError);
     }

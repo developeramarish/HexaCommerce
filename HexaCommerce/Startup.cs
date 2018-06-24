@@ -1,26 +1,14 @@
 using AutoMapper;
-using Hexa.Core.Data;
-using Hexa.Core.Domain.Customers;
 using Hexa.Data;
-using Hexa.Service.Contracts.Customers;
-using Hexa.Service.Services.Customers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Hexa.Service.Contracts.Catalog;
-using Hexa.Service.Services.Catalog;
-using Hexa.Core.Domain.Catalog;
-using Hexa.Core.Domain.Logs;
-using Hexa.Service.Contracts.Logs;
-using Hexa.Service.Services.Logs;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
-using Hexa.Service.Contracts.Pictures;
-using Hexa.Service.Services.Pictures;
-using Hexa.Core.Domain.Pictures;
+using Hexa.Core.Infrastructure;
 
 namespace HexaCommerce
 {
@@ -48,23 +36,24 @@ namespace HexaCommerce
                  options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
              });
 
-            services.AddTransient<IHexaRepository<Customer>, HexaRepository<Customer>>();
-            services.AddTransient<IHexaRepository<CustomerRole>, HexaRepository<CustomerRole>>();
-            services.AddTransient<IHexaRepository<CustomerCustomerRole>, HexaRepository<CustomerCustomerRole>>();
-            services.AddTransient<IHexaRepository<TokenManager>, HexaRepository<TokenManager>>();
-            services.AddTransient<IHexaRepository<Category>, HexaRepository<Category>>();
-            services.AddTransient<IHexaRepository<Log>, HexaRepository<Log>>();
-            services.AddTransient<IHexaRepository<Picture>, HexaRepository<Picture>>();
-            services.AddTransient<IHexaRepository<Product>, HexaRepository<Product>>();
-            services.AddTransient<IHexaRepository<ProductCategoryMapping>, HexaRepository<ProductCategoryMapping>>();
-            services.AddTransient<IHexaRepository<ProductPictureMapping>, HexaRepository<ProductPictureMapping>>();
+            services.RegisterServices();
 
+            //services.AddSingleton(typeof(IHexaRepository<>), typeof(HexaRepository<>));
+            //services.AddTransient<IHexaRepository<CustomerRole>, HexaRepository<CustomerRole>>();
+            //services.AddTransient<IHexaRepository<CustomerCustomerRole>, HexaRepository<CustomerCustomerRole>>();
+            //services.AddTransient<IHexaRepository<TokenManager>, HexaRepository<TokenManager>>();
+            //services.AddTransient<IHexaRepository<Category>, HexaRepository<Category>>();
+            //services.AddTransient<IHexaRepository<Log>, HexaRepository<Log>>();
+            //services.AddTransient<IHexaRepository<Picture>, HexaRepository<Picture>>();
+            //services.AddTransient<IHexaRepository<Product>, HexaRepository<Product>>();
+            //services.AddTransient<IHexaRepository<ProductCategoryMapping>, HexaRepository<ProductCategoryMapping>>();
+            //services.AddTransient<IHexaRepository<ProductPictureMapping>, HexaRepository<ProductPictureMapping>>();
 
-            services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<ILogService, LogService>();
-            services.AddTransient<IPictureService, PictureService>();
-            services.AddTransient<IProductService, ProductService>();
+            //services.AddTransient<ICustomerService, CustomerService>();
+            //services.AddTransient<ICategoryService, CategoryService>();
+            //services.AddTransient<ILogService, LogService>();
+            //services.AddTransient<IPictureService, PictureService>();
+            //services.AddTransient<IProductService, ProductService>();
 
             var physicalProvider = _hostingEnvironment.ContentRootFileProvider;
             var embeddedProvider = new EmbeddedFileProvider(Assembly.GetEntryAssembly());

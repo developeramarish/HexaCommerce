@@ -1,54 +1,48 @@
 ﻿<p-growl [(value)]="msgs"></p-growl>
-<span><a [routerLink]="['/Admin/Category']"><i class="fa fa-arrow-circle-left"></i> Back to list</a></span>
-<h3>{{action}} Category</h3>
+<span><a [routerLink]="['/Admin/Product']"><i class="fa fa-arrow-circle-left"></i> Back to list</a></span>
+<h3>{{action}} Product</h3>
 
 <div class="clearfix"></div>
 <div class="jumbotron">
-    <form *ngIf="categoryFrm" class="form-horizontal" [formGroup]="categoryFrm" (ngSubmit)="onSubmit(categoryFrm.value)">
+    <form *ngIf="productFrm" class="form-horizontal" [formGroup]="productFrm" (ngSubmit)="onSubmit(productFrm.value)">
 
-        <input type="hidden" [formControl]="categoryFrm.controls['Id']" />
+        <input type="hidden" [formControl]="productFrm.controls['Id']" />
 
-        <div class="form-group" [ngClass]="{'has-error':!categoryFrm.controls['Name'].valid && categoryFrm.controls['Name'].touched}">
+        <div class="form-group" [ngClass]="{'has-error':!productFrm.controls['Name'].valid && productFrm.controls['Name'].touched}">
             <label>Name</label>
-            <input class="form-control" type="text" placeholder="Category Name" [formControl]="categoryFrm.controls['Name']" required>
+            <input class="form-control" type="text" placeholder="Product Name" [formControl]="productFrm.controls['Name']" required>
         </div>
-        <div class="form-group" [ngClass]="{'has-error':!categoryFrm.controls['Description'].valid && categoryFrm.controls['Description'].touched}">
-            <label>Description</label>
-            <p-editor [formControl]="categoryFrm.controls['Description']" [style]="{'height':'320px', 'background':'white'}">
+        <div class="form-group" [ngClass]="{'has-error':!productFrm.controls['ShortDescription'].valid && productFrm.controls['ShortDescription'].touched}">
+            <label>Short Description</label>
+            <textarea class="form-control" placeholder="Product Short Description" [formControl]="productFrm.controls['ShortDescription']" rows="4" required></textarea>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':!productFrm.controls['FullDescription'].valid && productFrm.controls['FullDescription'].touched}">
+            <label>Full Description</label>
+            <p-editor [formControl]="productFrm.controls['FullDescription']" [style]="{'height':'320px', 'background':'white'}">
             </p-editor>
         </div>
         <div class="form-group">
-            <label>Parent Category</label><div class="clearfix"></div>
-            <select class="form-control col-md-6" [formControl]="categoryFrm.controls['ParentCategoryId']">
-                <option value="0">Please Select</option>
-                <option *ngFor="let category of categories" value={{category.Id}}>{{category.Name}}</option>
-            </select>
+            <label for="IncludeInNavigation">Show On Home Page</label>
+            <input type="checkbox" value="0" name="IncludeInNavigation" [formControl]="productFrm.controls['ShowOnHomePage']">
         </div>
-        <div class="form-group">
-            <label for="IncludeInNavigation">Add to navigation</label>
-            <input type="checkbox" value="hiking" name="IncludeInNavigation" [formControl]="categoryFrm.controls['IncludeInNavigation']">
-        </div>
-        <div class="form-group">
-            <label>Active</label>
-            <input type="checkbox" value="swimming" name="Active" [formControl]="categoryFrm.controls['Active']">
+        <div class="form-group" [ngClass]="{'has-error':!productFrm.controls['Price'].valid && productFrm.controls['Price'].touched}">
+            <label>Price</label>
+            <input class="form-control" type="number" placeholder="Price" [formControl]="productFrm.controls['Price']" required>
         </div>
         <div class="form-group">
             <label>Delete</label>
-            <input type="checkbox" value="running" name="Deleted" [formControl]="categoryFrm.controls['Deleted']">
+            <input class="" type="checkbox" value="0" name="Deleted" [formControl]="productFrm.controls['Deleted']">
+        </div>
+        <div class="form-group">
+            <label>Published</label>
+            <input type="checkbox" value="0" name="Published" [formControl]="productFrm.controls['Published']">
         </div>
         <div class="form-group">
             <label>Display Order</label>
-            <input class="form-control" type="text" placeholder="Display Order" [formControl]="categoryFrm.controls['DisplayOrder']">
+            <input class="form-control" type="text" placeholder="Display Order" [formControl]="productFrm.controls['DisplayOrder']">
         </div>
         <div class="form-group">
-            <label>Select Category Picture</label>
-            <p-fileUpload name="files[]" (onBeforeSend)="onBeforeSend($event)" (onUpload)="onUpload($event)" url="/admin/api/pictureupload" accept="image/*" auto="auto">
-            </p-fileUpload>
-            <img *ngIf="pictureModel" class="marg-top10 img-responsive" src="/Images/Thumbnails/{{pictureModel.Name}}" height="150" width="150" />
-            <input type="hidden" value="{{pictureId}}" [formControl]="categoryFrm.controls['PictureId']" />
-        </div>
-        <div class="form-group">
-            <button type="submit" [disabled]="!categoryFrm.valid" class="btn btn-default">Submit</button>
+            <button type="submit" [disabled]="!productFrm.valid" class="btn btn-default">Save</button>
         </div>
     </form>
 </div>

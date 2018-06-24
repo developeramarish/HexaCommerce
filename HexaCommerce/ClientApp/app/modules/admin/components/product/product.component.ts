@@ -22,16 +22,18 @@ export class ProductComponent implements OnInit {
     ngOnInit() {
 
         this.productFrm = this.fb.group({
-            Name: [''],
-            Description: ['', Validators.required],
-            ParentCategoryId: [''],
-            IncludeInNavigation: true,
-            Active: true,
+            Id: 0,
+            Name: ['', Validators.required],
+            ShortDescription: ['', Validators.required],
+            FullDescription: '',
+            ShowOnHomePage: true,
+            Price: [0, Validators.required],
             Deleted: false,
-            DisplayOrder: ['']
+            Published: true,
+            DisplayOrder: 0
         });
 
-        this._repositoryService.get("/admin/api/category/").subscribe(data => {
+        this._repositoryService.get("/admin/api/product/").subscribe(data => {
             this.products = data
         }, error => {
             if (error) {
@@ -46,7 +48,7 @@ export class ProductComponent implements OnInit {
             message: 'Are you sure that you want to delete this product?',
             accept: () => {
                 //Actual logic to perform a confirmation
-                this._repositoryService.delete(id, "/admin/api/category/").subscribe(data => {
+                this._repositoryService.delete(id, "/admin/api/product/").subscribe(data => {
                     this.ngOnInit();
                 }, error => {
                     if (error) {
