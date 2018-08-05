@@ -1,9 +1,10 @@
 ﻿using Autofac;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hexa.Core.Infrastructure
 {
     public interface IDependencyRegistrar
     {
-        void Register(ContainerBuilder builder);
+        void Register(IServiceCollection builder);
     }
 }

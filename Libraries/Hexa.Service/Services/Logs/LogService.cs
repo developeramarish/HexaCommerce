@@ -14,14 +14,17 @@ namespace Hexa.Service.Services.Logs
         #region Fields
 
         private readonly IHexaRepository<Log> _logRepository;
+        private readonly IMapper _mapper;
 
         #endregion
 
         #region Ctor
 
-        public LogService(IHexaRepository<Log> logRepository)
+        public LogService(IHexaRepository<Log> logRepository,
+            IMapper mapper)
         {
             _logRepository = logRepository;
+            _mapper = mapper;
         }
 
         #endregion
@@ -41,12 +44,12 @@ namespace Hexa.Service.Services.Logs
             if (log == null)
                 throw new ArgumentNullException("Log");
 
-            _logRepository.Insert(Mapper.Map<Log>(log));
+            _logRepository.Insert(_mapper.Map<Log>(log));
         }
 
         public List<LogModel> GetAllLogs()
         {
-            return Mapper.Map<List<LogModel>>(_logRepository.Table.ToList());
+            return _mapper.Map<List<LogModel>>(_logRepository.Table.ToList());
 
         }
 

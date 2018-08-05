@@ -16,16 +16,19 @@ namespace Hexa.Service.Services.Catalog
 
         private readonly IHexaRepository<Category> _categoryRepository;
         private readonly IPictureService _pictureService;
+        private readonly IMapper _mapper;
 
         #endregion
 
         #region Ctor
 
         public CategoryService(IHexaRepository<Category> categoryRepository,
-            IPictureService pictureService)
+            IPictureService pictureService,
+            IMapper mapper)
         {
             _categoryRepository = categoryRepository;
             _pictureService = pictureService;
+            _mapper = mapper;
         }
 
         #endregion
@@ -47,7 +50,7 @@ namespace Hexa.Service.Services.Catalog
             if (categoryId == 0)
                 return null;
 
-            var result = Mapper.Map<CategoryModel>(_categoryRepository.GetById(categoryId));
+            var result = _mapper.Map<CategoryModel>(_categoryRepository.GetById(categoryId));
             if (result != null && result.PictureId > 0)
             {
                 result.Picture = _pictureService.GetPictureById(result.PictureId);
@@ -61,7 +64,7 @@ namespace Hexa.Service.Services.Catalog
             if (category == null)
                 throw new ArgumentNullException("category");
 
-            _categoryRepository.Insert(Mapper.Map<Category>(category));
+            _categoryRepository.Insert(_mapper.Map<Category>(category));
         }
 
         public void UpdateCategory(CategoryModel category)
@@ -69,7 +72,7 @@ namespace Hexa.Service.Services.Catalog
             if (category == null)
                 throw new ArgumentNullException("category");
 
-            _categoryRepository.Update(Mapper.Map<Category>(category));
+            _categoryRepository.Update(_mapper.Map<Category>(category));
         }
 
         public List<CategoryModel> GetAllCategories(string name)
@@ -81,7 +84,7 @@ namespace Hexa.Service.Services.Catalog
             if (!string.IsNullOrEmpty(name))
                 query = query.Where(a => a.Name.Contains(name));
 
-            return Mapper.Map<List<CategoryModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
+            return _mapper.Map<List<CategoryModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
         }
 
         #endregion

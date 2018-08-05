@@ -21,6 +21,7 @@ namespace Hexa.Service.Services.Customers
         private readonly IHexaRepository<TokenManager> _tokenManagerRepository;
         private readonly IHexaRepository<CustomerRole> _customerRoleRepository;
         private readonly IHexaRepository<CustomerCustomerRole> _customerCustomerRoleRepository;
+        private readonly IMapper _mapper;
 
         #endregion
 
@@ -29,12 +30,14 @@ namespace Hexa.Service.Services.Customers
         public CustomerService(IHexaRepository<Customer> customerRepository,
             IHexaRepository<TokenManager> tokenManagerRepository,
             IHexaRepository<CustomerRole> customerRoleRepository,
-            IHexaRepository<CustomerCustomerRole> customerCustomerRoleRepository)
+            IHexaRepository<CustomerCustomerRole> customerCustomerRoleRepository,
+            IMapper mapper)
         {
             _customerRepository = customerRepository;
             _tokenManagerRepository = tokenManagerRepository;
             _customerRoleRepository = customerRoleRepository;
             _customerCustomerRoleRepository = customerCustomerRoleRepository;
+            _mapper = mapper;
         }
 
         #endregion
@@ -139,7 +142,7 @@ namespace Hexa.Service.Services.Customers
                 return null;
             }
 
-            return Mapper.Map<CustomerModel>(customer);
+            return _mapper.Map<CustomerModel>(customer);
         }
 
         public CustomerModel ValidateCustomerRole(int customerId, int customerRoleId)
@@ -167,7 +170,7 @@ namespace Hexa.Service.Services.Customers
             {
                 token.ExpiresOn = DateTime.Now.AddMinutes(30);
                 _tokenManagerRepository.Update(token);
-                return Mapper.Map<CustomerModel>(customer);
+                return _mapper.Map<CustomerModel>(customer);
             }
             return null;
         }

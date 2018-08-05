@@ -8,14 +8,15 @@ using Hexa.Core.Domain.Customers;
 using Hexa.Core.Domain.Logs;
 using Hexa.Core.Domain.Pictures;
 
-namespace HexaCommerce
+namespace Hexa.Service.Mapper
 {
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
-            CreateMap<Category, CategoryModel>().ReverseMap();
-            CreateMap<Customer, CustomerModel>().ReverseMap();
+            CreateMap<Category, CategoryModel>();
+            CreateMap<Customer, CustomerModel>();
+            CreateMap<CustomerModel, Customer>();
             CreateMap<Log, LogModel>().ReverseMap();
             CreateMap<Picture, PictureModel > ().ReverseMap();
             CreateMap<Product, ProductModel>().ReverseMap();

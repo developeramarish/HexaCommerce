@@ -1,4 +1,3 @@
-using AutoMapper;
 using Hexa.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,7 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
+using Hexa.Service.Mapper;
+using System;
 using Hexa.Core.Infrastructure;
+using Hexa.Service.DependencyRegistrar;
 
 namespace HexaCommerce
 {
@@ -30,35 +32,21 @@ namespace HexaCommerce
         {
             services.AddDbContext<HexaDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddAutoMapper();
+            //register AutoMapper
+            services.RegisterMapper();
+
             services.AddMvc().AddJsonOptions(options =>
              {
                  options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
              });
-
-            services.RegisterServices();
-
-            //services.AddSingleton(typeof(IHexaRepository<>), typeof(HexaRepository<>));
-            //services.AddTransient<IHexaRepository<CustomerRole>, HexaRepository<CustomerRole>>();
-            //services.AddTransient<IHexaRepository<CustomerCustomerRole>, HexaRepository<CustomerCustomerRole>>();
-            //services.AddTransient<IHexaRepository<TokenManager>, HexaRepository<TokenManager>>();
-            //services.AddTransient<IHexaRepository<Category>, HexaRepository<Category>>();
-            //services.AddTransient<IHexaRepository<Log>, HexaRepository<Log>>();
-            //services.AddTransient<IHexaRepository<Picture>, HexaRepository<Picture>>();
-            //services.AddTransient<IHexaRepository<Product>, HexaRepository<Product>>();
-            //services.AddTransient<IHexaRepository<ProductCategoryMapping>, HexaRepository<ProductCategoryMapping>>();
-            //services.AddTransient<IHexaRepository<ProductPictureMapping>, HexaRepository<ProductPictureMapping>>();
-
-            //services.AddTransient<ICustomerService, CustomerService>();
-            //services.AddTransient<ICategoryService, CategoryService>();
-            //services.AddTransient<ILogService, LogService>();
-            //services.AddTransient<IPictureService, PictureService>();
-            //services.AddTransient<IProductService, ProductService>();
-
+            
             var physicalProvider = _hostingEnvironment.ContentRootFileProvider;
             var embeddedProvider = new EmbeddedFileProvider(Assembly.GetEntryAssembly());
             var compositeProvider = new CompositeFileProvider(physicalProvider, embeddedProvider);
             services.AddSingleton<IFileProvider>(compositeProvider);
+
+            // register dependancy injection
+            services.RegisterServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,11 +1,8 @@
-﻿using Autofac;
-using Hexa.Core.Data;
+﻿using Hexa.Core.Data;
 using Hexa.Core.Domain.Catalog;
 using Hexa.Core.Domain.Customers;
 using Hexa.Core.Domain.Logs;
 using Hexa.Core.Domain.Pictures;
-using Hexa.Core.Infrastructure;
-using Hexa.Data;
 using Hexa.Service.Contracts.Catalog;
 using Hexa.Service.Contracts.Customers;
 using Hexa.Service.Contracts.Logs;
@@ -15,13 +12,35 @@ using Hexa.Service.Services.Customers;
 using Hexa.Service.Services.Logs;
 using Hexa.Service.Services.Pictures;
 using Microsoft.Extensions.DependencyInjection;
+using Hexa.Data;
+using Hexa.Core.Infrastructure;
+using System.Linq;
+using System;
+using AutoMapper;
 
 namespace Hexa.Service.DependencyRegistrar
 {
-    public class DependencyRegistrar : IDependencyRegistrar
+    public static class ServiceCollectionExtention
     {
-        public virtual void Register(IServiceCollection services)
+        public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
+            var typeFinder = new AppDomainClassFinder();
+
+            //register type finder
+            services.AddSingleton<ITypeFinder>(typeFinder);
+
+            //find dependency registrars classes added in all other assemblies
+            var dependencyRegistrars = typeFinder.FindClassesOfType(typeof(IDependencyRegistrar), true);
+
+            var instances = dependencyRegistrars
+                .Select(d => (IDependencyRegistrar)Activator.CreateInstance(d))
+                .OrderBy(a => a);
+
+            foreach (var instance in instances)
+            {
+                instance.Register(services);
+            }
+
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ILogService, LogService>();
@@ -39,6 +58,8 @@ namespace Hexa.Service.DependencyRegistrar
             services.AddTransient<IHexaRepository<Product>, HexaRepository<Product>>();
             services.AddTransient<IHexaRepository<ProductCategoryMapping>, HexaRepository<ProductCategoryMapping>>();
             services.AddTransient<IHexaRepository<ProductPictureMapping>, HexaRepository<ProductPictureMapping>>();
+
+            return services;
         }
     }
 }

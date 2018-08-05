@@ -6,7 +6,6 @@ using Hexa.Service.Contracts.Catalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Hexa.Service.Services.Catalog
 {
@@ -17,6 +16,7 @@ namespace Hexa.Service.Services.Catalog
         private readonly IHexaRepository<Product> _productRepository;
         private readonly IHexaRepository<ProductCategoryMapping> _productCategoryRepository;
         private readonly IHexaRepository<ProductPictureMapping> _productPictureMapping;
+        private readonly IMapper _mapper;
 
         #endregion
 
@@ -24,11 +24,13 @@ namespace Hexa.Service.Services.Catalog
 
         public ProductService(IHexaRepository<Product> productRepository,
             IHexaRepository<ProductCategoryMapping> productCategoryRepository,
-            IHexaRepository<ProductPictureMapping> productPictureMapping)
+            IHexaRepository<ProductPictureMapping> productPictureMapping,
+            IMapper mapper)
         {
             _productRepository = productRepository;
             _productCategoryRepository = productCategoryRepository;
             _productPictureMapping = productPictureMapping;
+            _mapper = mapper;
         }
 
         #endregion
@@ -50,7 +52,7 @@ namespace Hexa.Service.Services.Catalog
             if (id == 0)
                 return null;
 
-            var result = Mapper.Map<ProductModel>(_productRepository.GetById(id));
+            var result = _mapper.Map<ProductModel>(_productRepository.GetById(id));
             return result;
         }
 
@@ -59,7 +61,7 @@ namespace Hexa.Service.Services.Catalog
             if (product == null)
                 throw new ArgumentNullException("product");
 
-            _productRepository.Insert(Mapper.Map<Product>(product));
+            _productRepository.Insert(_mapper.Map<Product>(product));
         }
 
         public void UpdateProduct(ProductModel product)
@@ -67,7 +69,7 @@ namespace Hexa.Service.Services.Catalog
             if (product == null)
                 throw new ArgumentNullException("product");
 
-            _productRepository.Update(Mapper.Map<Product>(product));
+            _productRepository.Update(_mapper.Map<Product>(product));
         }
 
         public List<ProductModel> GetAllProducts(string name)
@@ -79,7 +81,7 @@ namespace Hexa.Service.Services.Catalog
             if (!string.IsNullOrEmpty(name))
                 query = query.Where(a => a.Name.Contains(name));
 
-            return Mapper.Map<List<ProductModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
+            return _mapper.Map<List<ProductModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
         }
 
         #endregion
@@ -91,7 +93,7 @@ namespace Hexa.Service.Services.Catalog
             if (productCategory == null)
                 throw new ArgumentNullException("ProductCategoryMapping");
 
-            _productCategoryRepository.Delete(Mapper.Map<ProductCategoryMapping>(productCategory));
+            _productCategoryRepository.Delete(_mapper.Map<ProductCategoryMapping>(productCategory));
         }
 
         public void InsertProductCategoryMapping(ProductCategoryModel productCategory)
@@ -99,7 +101,7 @@ namespace Hexa.Service.Services.Catalog
             if (productCategory == null)
                 throw new ArgumentNullException("ProductCategoryMapping");
 
-            _productCategoryRepository.Insert(Mapper.Map<ProductCategoryMapping>(productCategory));
+            _productCategoryRepository.Insert(_mapper.Map<ProductCategoryMapping>(productCategory));
         }
 
         public void UpdateProductCategoryMapping(ProductCategoryModel productCategory)
@@ -107,14 +109,14 @@ namespace Hexa.Service.Services.Catalog
             if (productCategory == null)
                 throw new ArgumentNullException("ProductCategoryMapping");
 
-            _productCategoryRepository.Update(Mapper.Map<ProductCategoryMapping>(productCategory));
+            _productCategoryRepository.Update(_mapper.Map<ProductCategoryMapping>(productCategory));
         }
 
         public List<ProductCategoryModel> GetProductCategoryMappingByProductId(int productId)
         {
             var query = _productCategoryRepository.Table.Where(a => a.ProductId == productId);
                         
-            return Mapper.Map<List<ProductCategoryModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
+            return _mapper.Map<List<ProductCategoryModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
         }
 
         #endregion
@@ -126,7 +128,7 @@ namespace Hexa.Service.Services.Catalog
             if (productPicture == null)
                 throw new ArgumentNullException("ProductPictureModel");
 
-            _productPictureMapping.Delete(Mapper.Map<ProductPictureMapping>(productPicture));
+            _productPictureMapping.Delete(_mapper.Map<ProductPictureMapping>(productPicture));
         }
 
         public void InsertProductPictureMapping(ProductPictureModel productCategory)
@@ -134,7 +136,7 @@ namespace Hexa.Service.Services.Catalog
             if (productCategory == null)
                 throw new ArgumentNullException("ProductCategoryMapping");
 
-            _productPictureMapping.Insert(Mapper.Map<ProductPictureMapping>(productCategory));
+            _productPictureMapping.Insert(_mapper.Map<ProductPictureMapping>(productCategory));
         }
 
         public void UpdateProductPictureMapping(ProductPictureModel productCategory)
@@ -142,14 +144,14 @@ namespace Hexa.Service.Services.Catalog
             if (productCategory == null)
                 throw new ArgumentNullException("ProductCategoryMapping");
 
-            _productPictureMapping.Update(Mapper.Map<ProductPictureMapping>(productCategory));
+            _productPictureMapping.Update(_mapper.Map<ProductPictureMapping>(productCategory));
         }
 
         public List<ProductPictureModel> GetProductPictureMappingByProductId(int productId)
         {
             var query = _productPictureMapping.Table.Where(a => a.ProductId == productId);
 
-            return Mapper.Map<List<ProductPictureModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
+            return _mapper.Map<List<ProductPictureModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
         }
 
         #endregion

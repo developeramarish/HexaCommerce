@@ -10,10 +10,13 @@ namespace Hexa.Service.Services.Pictures
     public class PictureService : IPictureService
     {
         private readonly IHexaRepository<Picture> _pictureRepository;
+        private readonly IMapper _mapper;
 
-        public PictureService(IHexaRepository<Picture> pictureRepository)
+        public PictureService(IHexaRepository<Picture> pictureRepository,
+            IMapper mapper)
         {
             _pictureRepository = pictureRepository;
+            _mapper = mapper;
         }
 
         public void DeletePicture(int id)
@@ -21,7 +24,7 @@ namespace Hexa.Service.Services.Pictures
             if (id == 0)
                 throw new ArgumentNullException("picture");
 
-            _pictureRepository.Delete(Mapper.Map<Picture>(GetPictureById(id)));
+            _pictureRepository.Delete(_mapper.Map<Picture>(GetPictureById(id)));
         }
 
         public PictureModel GetPictureById(int pictureId)
@@ -29,7 +32,7 @@ namespace Hexa.Service.Services.Pictures
             if (pictureId == 0)
                 return null;
 
-            return Mapper.Map<PictureModel>(_pictureRepository.GetById(pictureId));
+            return _mapper.Map<PictureModel>(_pictureRepository.GetById(pictureId));
         }
 
         public int InsertPicture(PictureModel picture)
@@ -37,7 +40,7 @@ namespace Hexa.Service.Services.Pictures
             if (picture == null)
                 throw new ArgumentNullException("picture");
 
-            var newPicture = Mapper.Map<Picture>(picture);
+            var newPicture = _mapper.Map<Picture>(picture);
             _pictureRepository.Insert(newPicture);
 
             if (newPicture == null) {
