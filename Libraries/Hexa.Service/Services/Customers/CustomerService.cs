@@ -6,10 +6,10 @@ using Hexa.Core.Domain.Customers;
 using Hexa.Core.Data;
 using Hexa.Business.Models.Customers;
 using AutoMapper;
-using Hexa.Service.Authentication;
 using Hexa.Core;
 using Hexa.Business;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Hexa.Service.Services.Customers
 {
@@ -44,40 +44,40 @@ namespace Hexa.Service.Services.Customers
 
         #region Methods
 
-        public void DeleteCustomer(Customer customer)
+        public async Task DeleteCustomer(Customer customer)
         {
             if (customer == null)
                 throw new ArgumentNullException("Customer");
 
             customer.Deleted = true;
-            UpdateCustomer(customer);
+            await UpdateCustomer(customer);
         }
 
-        public Customer GetCustomerById(int customerId)
+        public async Task<Customer> GetCustomerById(int customerId)
         {
             if (customerId == 0)
                 return null;
 
-            return _customerRepository.GetById(customerId);
+            return await _customerRepository.GetById(customerId);
         }
 
-        public void InsertCustomer(Customer customer)
+        public async Task InsertCustomer(Customer customer)
         {
             if (customer == null)
                 throw new ArgumentNullException("Customer");
 
-            _customerRepository.Insert(customer);
+            await _customerRepository.Insert(customer);
         }
 
-        public void UpdateCustomer(Customer customer)
+        public async Task UpdateCustomer(Customer customer)
         {
             if (customer == null)
                 throw new ArgumentNullException("Customer");
 
-            _customerRepository.Update(customer);
+            await _customerRepository.Update(customer);
         }
 
-        public IList<Customer> GetAllCustomers(string name)
+        public async Task<IList<Customer>> GetAllCustomers(string name)
         {
             var query = _customerRepository.Table;
             query = query.Where(c => c.Active);
@@ -89,10 +89,10 @@ namespace Hexa.Service.Services.Customers
             if (!string.IsNullOrEmpty(name))
                 query = query.Where(a => a.LastName.Contains(name));
 
-            return query.OrderBy(a => a.DisplayOrder).ToList();
+            return await query.OrderBy(a => a.DisplayOrder).ToListAsync();
         }
 
-        public Customer GetCustomerByEmail(string email)
+        public async Task<Customer> GetCustomerByEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
                 return null;
@@ -101,11 +101,10 @@ namespace Hexa.Service.Services.Customers
                         orderby c.Id
                         where c.Email == email
                         select c;
-            var customer = query.FirstOrDefault();
-            return customer;
+            return await query.FirstOrDefaultAsync();
         }
 
-        public virtual Customer GetCustomerByUsername(string username)
+        public async Task<Customer> GetCustomerByUsername(string username)
         {
             if (string.IsNullOrWhiteSpace(username))
                 return null;
@@ -114,13 +113,12 @@ namespace Hexa.Service.Services.Customers
                         orderby c.Id
                         where c.UserName == username
                         select c;
-            var customer = query.FirstOrDefault();
-            return customer;
+            return await query.FirstOrDefaultAsync();
         }
 
-        public CustomerModel ValidateCustomer(string username, string password)
+        public async Task<CustomerModel> ValidateCustomer(string username, string password)
         {
-            var customer = GetCustomerByUsername(username);
+            var customer = await GetCustomerByUsername(username);
 
             if (customer == null)
                 return null;
@@ -138,16 +136,16 @@ namespace Hexa.Service.Services.Customers
                 {
                     //todo: lock account for 24 hours 
                 }
-                UpdateCustomer(customer);
+                await UpdateCustomer(customer);
                 return null;
             }
 
             return _mapper.Map<CustomerModel>(customer);
         }
 
-        public CustomerModel ValidateCustomerRole(int customerId, int customerRoleId)
+        public async Task<CustomerModel> ValidateCustomerRole(int customerId, int customerRoleId)
         {
-            var customer = _customerRepository.Table.Include(a => a.CustomerRoles).FirstOrDefault(a=>a.Id == customerId);
+            var customer = await _customerRepository.Table.Include(a => a.CustomerRoles).FirstOrDefaultAsync(a=>a.Id == customerId);
 
             if (customer == null)
                 return null;
@@ -164,41 +162,41 @@ namespace Hexa.Service.Services.Customers
             if (!customer.CustomerRoles.Any(a=>a.CustomerRoleId == customerRoleId))
                 return null;
 
-            var token = GetTokenByCustomerId(customerId);
+            var token = await GetTokenByCustomerId(customerId);
 
             if (token != null && token.ExpiresOn > DateTime.Now)
             {
                 token.ExpiresOn = DateTime.Now.AddMinutes(30);
-                _tokenManagerRepository.Update(token);
+                await _tokenManagerRepository.Update(token);
                 return _mapper.Map<CustomerModel>(customer);
             }
             return null;
         }
 
-        public TokenManager GetTokenByCustomerId(int customerId)
+        public async Task<TokenManager> GetTokenByCustomerId(int customerId)
         {
-            return _tokenManagerRepository.Table.FirstOrDefault(a => a.CustomerId == customerId);
+            return await _tokenManagerRepository.Table.FirstOrDefaultAsync(a => a.CustomerId == customerId);
         }
 
-        public TokenManager GetTokenById(int id)
+        public async Task<TokenManager> GetTokenById(int id)
         {
-            return _tokenManagerRepository.GetById(id);
+            return await _tokenManagerRepository.GetById(id);
         }
 
-        public void DeleteToken(TokenManager token)
+        public async Task DeleteToken(TokenManager token)
         {
-            _tokenManagerRepository.Delete(token);
+            await _tokenManagerRepository.Delete(token);
         }
 
-        public void InsertToken(TokenManager token)
+        public async Task InsertToken(TokenManager token)
         {
-            _tokenManagerRepository.Insert(token);
+            await _tokenManagerRepository.Insert(token);
         }
 
 
-        public LoginResponseModel GetLoginResponse(CustomerModel customer)
+        public async Task<LoginResponseModel> GetLoginResponse(CustomerModel customer)
         {
-            var customerDetails = (from customerTable in _customerRepository.Table
+            var customerDetails = await (from customerTable in _customerRepository.Table
                                    join customerRoleMapping in _customerCustomerRoleRepository.Table on customerTable.Id equals customerRoleMapping.CustomerId
                                    join customerRole in _customerRoleRepository.Table on customerRoleMapping.CustomerRoleId equals customerRole.Id
                                    where customerTable.Id == customer.Id
@@ -208,7 +206,7 @@ namespace Hexa.Service.Services.Customers
                                        Username = customerTable.UserName,
                                        CustomerTypeId = customerRoleMapping.CustomerRoleId,
                                        CustomerTypeName = customerRole.Name,
-                                   }).ToList();
+                                   }).ToListAsync();
 
             if (customerDetails == null)
                 return null;
@@ -221,17 +219,17 @@ namespace Hexa.Service.Services.Customers
                 tokenModel.CustomerRoleIds.Add(item.CustomerTypeId);
                 tokenModel.CustomerRoleNames.Add(item.CustomerTypeName);
             }
-            return GenerateToken(tokenModel);
+            return await GenerateToken(tokenModel);
         }
 
-        public LoginResponseModel GenerateToken(CustomerLoginTokenModel tokenModel)
+        public async Task<LoginResponseModel> GenerateToken(CustomerLoginTokenModel tokenModel)
         {
             try
             {
-                var token = GetTokenByCustomerId(tokenModel.CustomerId);
+                var token = await GetTokenByCustomerId(tokenModel.CustomerId);
 
                 if (token != null)
-                    DeleteToken(token);
+                    await DeleteToken(token);
 
                 var newToken = new TokenManager
                 {
@@ -244,7 +242,7 @@ namespace Hexa.Service.Services.Customers
                     CreatedOn = DateTime.Now
                 };
 
-                InsertToken(newToken);
+                await InsertToken(newToken);
 
                 return new LoginResponseModel
                 {

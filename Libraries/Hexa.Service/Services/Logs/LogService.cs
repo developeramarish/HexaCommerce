@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Hexa.Business.Models.Logs;
 using Hexa.Core.Data;
 using Hexa.Core.Domain.Logs;
 using Hexa.Service.Contracts.Logs;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hexa.Service.Services.Logs
 {
@@ -31,25 +33,25 @@ namespace Hexa.Service.Services.Logs
 
         #region Methods
 
-        public Log GetLogById(int logId)
+        public async Task<Log> GetLogById(int logId)
         {
             if (logId == 0)
                 return null;
 
-            return _logRepository.GetById(logId);
+            return await _logRepository.GetById(logId);
         }
 
-        public void InsertLog(LogModel log)
+        public async Task InsertLog(LogModel log)
         {
             if (log == null)
                 throw new ArgumentNullException("Log");
 
-            _logRepository.Insert(_mapper.Map<Log>(log));
+            await _logRepository.Insert(_mapper.Map<Log>(log));
         }
 
-        public List<LogModel> GetAllLogs()
+        public async Task<List<LogModel>> GetAllLogs()
         {
-            return _mapper.Map<List<LogModel>>(_logRepository.Table.ToList());
+            return _mapper.Map<List<LogModel>>(await _logRepository.Table.ToListAsync());
 
         }
 

@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HexaCommerce.Api.Admin
 {
     public class DashboardController : BaseAdminApiController
     {
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok("visit by auth token");
+            return Ok(await Task.FromResult("visit by auth token"));
         }
     }
 }

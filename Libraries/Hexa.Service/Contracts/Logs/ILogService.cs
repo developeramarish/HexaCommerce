@@ -1,15 +1,16 @@
 ﻿using Hexa.Business.Models.Logs;
 using Hexa.Core.Domain.Logs;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hexa.Service.Contracts.Logs
 {
     public interface ILogService
     {
-        Log GetLogById(int logId);
+        Task<Log> GetLogById(int logId);
 
-        void InsertLog(LogModel log);
+        Task InsertLog(LogModel log);
 
-        List<LogModel> GetAllLogs();
+        Task<List<LogModel>> GetAllLogs();
     }
 }

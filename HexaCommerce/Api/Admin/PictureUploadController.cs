@@ -50,7 +50,7 @@ namespace HexaCommerce.Api.Admin
                     CreatedOn = DateTime.UtcNow
                 };
 
-                result = _pictureService.InsertPicture(pictureModel);
+                result = await _pictureService.InsertPicture(pictureModel);
             }
 
             return Ok(result);

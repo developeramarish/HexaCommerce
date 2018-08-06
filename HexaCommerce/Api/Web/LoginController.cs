@@ -1,8 +1,8 @@
 ﻿using Hexa.Business.Models.Customers;
-using Hexa.Service.Authentication;
 using Hexa.Service.Contracts.Customers;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 namespace HexaCommerce.Api.Web
 {
@@ -16,7 +16,7 @@ namespace HexaCommerce.Api.Web
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]CustomerLoginModel model)
+        public async Task<IActionResult> Post([FromBody]CustomerLoginModel model)
         {
             try
             {
@@ -25,14 +25,14 @@ namespace HexaCommerce.Api.Web
                     return Unauthorized();
                 }
 
-                var customer = _customerService.ValidateCustomer(model.Username.Trim(), model.Password);
+                var customer = await _customerService.ValidateCustomer(model.Username.Trim(), model.Password);
 
                 if (customer == null)
                 {
                     return Unauthorized();
                 }
 
-                var result = _customerService.GetLoginResponse(customer);
+                var result = await _customerService.GetLoginResponse(customer);
 
                 if (result == null)
                 {

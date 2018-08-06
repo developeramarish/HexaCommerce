@@ -4,9 +4,11 @@ using Hexa.Core.Data;
 using Hexa.Core.Domain.Catalog;
 using Hexa.Service.Contracts.Catalog;
 using Hexa.Service.Contracts.Pictures;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hexa.Service.Services.Catalog
 {
@@ -35,17 +37,17 @@ namespace Hexa.Service.Services.Catalog
 
         #region Methods
 
-        public void DeleteCategory(int id)
+        public async Task DeleteCategory(int id)
         {
             if (id == 0)
                 throw new ArgumentNullException("category");
 
-            var category = GetCategoryById(id);
+            var category = await GetCategoryById(id);
             category.Deleted = true;
-            UpdateCategory(category);
+            await UpdateCategory(category);
         }
 
-        public CategoryModel GetCategoryById(int categoryId)
+        public async Task<CategoryModel> GetCategoryById(int categoryId)
         {
             if (categoryId == 0)
                 return null;
@@ -53,29 +55,29 @@ namespace Hexa.Service.Services.Catalog
             var result = _mapper.Map<CategoryModel>(_categoryRepository.GetById(categoryId));
             if (result != null && result.PictureId > 0)
             {
-                result.Picture = _pictureService.GetPictureById(result.PictureId);
+                result.Picture = await _pictureService.GetPictureById(result.PictureId);
             }
 
             return result;
         }
 
-        public void InsertCategory(CategoryModel category)
+        public async Task InsertCategory(CategoryModel category)
         {
             if (category == null)
                 throw new ArgumentNullException("category");
 
-            _categoryRepository.Insert(_mapper.Map<Category>(category));
+            await _categoryRepository.Insert(_mapper.Map<Category>(category));
         }
 
-        public void UpdateCategory(CategoryModel category)
+        public async Task UpdateCategory(CategoryModel category)
         {
             if (category == null)
                 throw new ArgumentNullException("category");
 
-            _categoryRepository.Update(_mapper.Map<Category>(category));
+            await _categoryRepository.Update(_mapper.Map<Category>(category));
         }
 
-        public List<CategoryModel> GetAllCategories(string name)
+        public async Task<List<CategoryModel>> GetAllCategories(string name)
         {
             var query = _categoryRepository.Table;
             query = query.Where(c => c.Active);
@@ -84,7 +86,7 @@ namespace Hexa.Service.Services.Catalog
             if (!string.IsNullOrEmpty(name))
                 query = query.Where(a => a.Name.Contains(name));
 
-            return _mapper.Map<List<CategoryModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
+            return _mapper.Map<List<CategoryModel>>(await query.OrderBy(a => a.DisplayOrder).ToListAsync());
         }
 
         #endregion

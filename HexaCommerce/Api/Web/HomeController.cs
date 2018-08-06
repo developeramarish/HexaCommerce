@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HexaCommerce.Api.Web
 {
     public class HomeController : BasePublicApiController
     {
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok("Welcome to home page");
+            return Ok(await Task.FromResult("Welcome to home page"));
         }
     }
 }

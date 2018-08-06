@@ -3,9 +3,11 @@ using Hexa.Business.Models.Catalog;
 using Hexa.Core.Data;
 using Hexa.Core.Domain.Catalog;
 using Hexa.Service.Contracts.Catalog;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hexa.Service.Services.Catalog
 {
@@ -37,42 +39,41 @@ namespace Hexa.Service.Services.Catalog
 
         #region Product
 
-        public void DeleteProduct(int id)
+        public async Task DeleteProduct(int id)
         {
             if (id == 0)
                 throw new ArgumentNullException("product");
 
-            var product = GetProductById(id);
+            var product = await GetProductById(id);
             product.Deleted = true;
-            UpdateProduct(product);
+            await UpdateProduct(product);
         }
 
-        public ProductModel GetProductById(int id)
+        public async Task<ProductModel> GetProductById(int id)
         {
             if (id == 0)
                 return null;
 
-            var result = _mapper.Map<ProductModel>(_productRepository.GetById(id));
-            return result;
+            return _mapper.Map<ProductModel>(await _productRepository.GetById(id));
         }
 
-        public void InsertProduct(ProductModel product)
+        public async Task InsertProduct(ProductModel product)
         {
             if (product == null)
                 throw new ArgumentNullException("product");
 
-            _productRepository.Insert(_mapper.Map<Product>(product));
+            await _productRepository.Insert(_mapper.Map<Product>(product));
         }
 
-        public void UpdateProduct(ProductModel product)
+        public async Task UpdateProduct(ProductModel product)
         {
             if (product == null)
                 throw new ArgumentNullException("product");
 
-            _productRepository.Update(_mapper.Map<Product>(product));
+            await _productRepository.Update(_mapper.Map<Product>(product));
         }
 
-        public List<ProductModel> GetAllProducts(string name)
+        public async Task<List<ProductModel>> GetAllProducts(string name)
         {
             var query = _productRepository.Table;
             query = query.Where(c => c.Published);
@@ -81,77 +82,77 @@ namespace Hexa.Service.Services.Catalog
             if (!string.IsNullOrEmpty(name))
                 query = query.Where(a => a.Name.Contains(name));
 
-            return _mapper.Map<List<ProductModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
+            return _mapper.Map<List<ProductModel>>(await query.OrderBy(a => a.DisplayOrder).ToListAsync());
         }
 
         #endregion
 
         #region Product Category Mapping
 
-        public void DeleteProductCategoryMapping(ProductCategoryModel productCategory)
+        public async Task DeleteProductCategoryMapping(ProductCategoryModel productCategory)
         {
             if (productCategory == null)
                 throw new ArgumentNullException("ProductCategoryMapping");
 
-            _productCategoryRepository.Delete(_mapper.Map<ProductCategoryMapping>(productCategory));
+            await _productCategoryRepository.Delete(_mapper.Map<ProductCategoryMapping>(productCategory));
         }
 
-        public void InsertProductCategoryMapping(ProductCategoryModel productCategory)
+        public async Task InsertProductCategoryMapping(ProductCategoryModel productCategory)
         {
             if (productCategory == null)
                 throw new ArgumentNullException("ProductCategoryMapping");
 
-            _productCategoryRepository.Insert(_mapper.Map<ProductCategoryMapping>(productCategory));
+            await _productCategoryRepository.Insert(_mapper.Map<ProductCategoryMapping>(productCategory));
         }
 
-        public void UpdateProductCategoryMapping(ProductCategoryModel productCategory)
+        public async Task UpdateProductCategoryMapping(ProductCategoryModel productCategory)
         {
             if (productCategory == null)
                 throw new ArgumentNullException("ProductCategoryMapping");
 
-            _productCategoryRepository.Update(_mapper.Map<ProductCategoryMapping>(productCategory));
+            await _productCategoryRepository.Update(_mapper.Map<ProductCategoryMapping>(productCategory));
         }
 
-        public List<ProductCategoryModel> GetProductCategoryMappingByProductId(int productId)
+        public async Task<List<ProductCategoryModel>> GetProductCategoryMappingByProductId(int productId)
         {
             var query = _productCategoryRepository.Table.Where(a => a.ProductId == productId);
                         
-            return _mapper.Map<List<ProductCategoryModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
+            return _mapper.Map<List<ProductCategoryModel>>(await query.OrderBy(a => a.DisplayOrder).ToListAsync());
         }
 
         #endregion
 
         #region Product Picture Mapping
 
-        public void DeleteProductPictureMapping(ProductPictureModel productPicture)
+        public async Task DeleteProductPictureMapping(ProductPictureModel productPicture)
         {
             if (productPicture == null)
                 throw new ArgumentNullException("ProductPictureModel");
 
-            _productPictureMapping.Delete(_mapper.Map<ProductPictureMapping>(productPicture));
+            await _productPictureMapping.Delete(_mapper.Map<ProductPictureMapping>(productPicture));
         }
 
-        public void InsertProductPictureMapping(ProductPictureModel productCategory)
+        public async Task InsertProductPictureMapping(ProductPictureModel productCategory)
         {
             if (productCategory == null)
                 throw new ArgumentNullException("ProductCategoryMapping");
 
-            _productPictureMapping.Insert(_mapper.Map<ProductPictureMapping>(productCategory));
+            await _productPictureMapping.Insert(_mapper.Map<ProductPictureMapping>(productCategory));
         }
 
-        public void UpdateProductPictureMapping(ProductPictureModel productCategory)
+        public async Task UpdateProductPictureMapping(ProductPictureModel productCategory)
         {
             if (productCategory == null)
                 throw new ArgumentNullException("ProductCategoryMapping");
 
-            _productPictureMapping.Update(_mapper.Map<ProductPictureMapping>(productCategory));
+            await _productPictureMapping.Update(_mapper.Map<ProductPictureMapping>(productCategory));
         }
 
-        public List<ProductPictureModel> GetProductPictureMappingByProductId(int productId)
+        public async Task<List<ProductPictureModel>> GetProductPictureMappingByProductId(int productId)
         {
             var query = _productPictureMapping.Table.Where(a => a.ProductId == productId);
 
-            return _mapper.Map<List<ProductPictureModel>>(query.OrderBy(a => a.DisplayOrder).ToList());
+            return _mapper.Map<List<ProductPictureModel>>(await query.OrderBy(a => a.DisplayOrder).ToListAsync());
         }
 
         #endregion

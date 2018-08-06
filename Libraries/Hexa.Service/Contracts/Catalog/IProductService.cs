@@ -1,5 +1,6 @@
 ﻿using Hexa.Business.Models.Catalog;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hexa.Service.Contracts.Catalog
 {
@@ -7,39 +8,39 @@ namespace Hexa.Service.Contracts.Catalog
     {
         #region Product
 
-        void DeleteProduct(int id);
+        Task DeleteProduct(int id);
 
-        ProductModel GetProductById(int id);
+        Task<ProductModel> GetProductById(int id);
 
-        void InsertProduct(ProductModel product);
+        Task InsertProduct(ProductModel product);
 
-        void UpdateProduct(ProductModel product);
+        Task UpdateProduct(ProductModel product);
 
-        List<ProductModel> GetAllProducts(string name);
+        Task<List<ProductModel>> GetAllProducts(string name);
 
         #endregion
 
         #region Product Category Mapping
 
-        void DeleteProductCategoryMapping(ProductCategoryModel productCategory);
+        Task DeleteProductCategoryMapping(ProductCategoryModel productCategory);
 
-        void InsertProductCategoryMapping(ProductCategoryModel productCategory);
+        Task InsertProductCategoryMapping(ProductCategoryModel productCategory);
 
-        void UpdateProductCategoryMapping(ProductCategoryModel productCategory);
+        Task UpdateProductCategoryMapping(ProductCategoryModel productCategory);
 
-        List<ProductCategoryModel> GetProductCategoryMappingByProductId(int productId);
+        Task<List<ProductCategoryModel>> GetProductCategoryMappingByProductId(int productId);
 
         #endregion
 
         #region Product Picture Mapping
 
-        void DeleteProductPictureMapping(ProductPictureModel productPicture);
+        Task DeleteProductPictureMapping(ProductPictureModel productPicture);
 
-        void InsertProductPictureMapping(ProductPictureModel productCategory);
+        Task InsertProductPictureMapping(ProductPictureModel productCategory);
 
-        void UpdateProductPictureMapping(ProductPictureModel productCategory);
+        Task UpdateProductPictureMapping(ProductPictureModel productCategory);
 
-        List<ProductPictureModel> GetProductPictureMappingByProductId(int productId);
+        Task<List<ProductPictureModel>> GetProductPictureMappingByProductId(int productId);
 
         #endregion
     }

@@ -3,6 +3,7 @@ using Hexa.Core.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hexa.Data
 {
@@ -31,16 +32,16 @@ namespace Hexa.Data
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual T GetById(int id)
+        public virtual async Task<T> GetById(int id)
         {
-            return Entities.AsNoTracking().FirstOrDefault(i => i.Id == id);
+            return await Entities.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
         /// <summary>
         /// Insert entity
         /// </summary>
         /// <param name="entity"></param>
-        public virtual void Insert(T entity)
+        public virtual async Task Insert(T entity)
         {
             try
             {
@@ -48,7 +49,7 @@ namespace Hexa.Data
                     throw new ArgumentNullException("entity");
 
                 Entities.Add(entity);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -60,7 +61,7 @@ namespace Hexa.Data
         /// Update entity
         /// </summary>
         /// <param name="entity"></param>
-        public virtual void Update(T entity)
+        public virtual async Task Update(T entity)
         {
             try
             {
@@ -68,7 +69,7 @@ namespace Hexa.Data
                     throw new ArgumentNullException("entity");
 
                 Entities.Update(entity);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -80,7 +81,7 @@ namespace Hexa.Data
         /// Delete entity
         /// </summary>
         /// <param name="entity"></param>
-        public virtual void Delete(T entity)
+        public virtual async Task Delete(T entity)
         {
             try
             {
@@ -88,7 +89,7 @@ namespace Hexa.Data
                     throw new ArgumentNullException("entity");
 
                 Entities.Remove(entity);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -111,7 +112,7 @@ namespace Hexa.Data
 
         public virtual IQueryable<T> Table
         {
-            get { return this.Entities; }
+            get { return Entities; }
         }
 
         #endregion

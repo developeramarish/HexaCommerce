@@ -1,35 +1,36 @@
 ﻿using Hexa.Business.Models.Customers;
 using Hexa.Core.Domain.Customers;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Hexa.Service.Contracts.Customers
 {
     public interface ICustomerService
     {
-        void DeleteCustomer(Customer customer);
+        Task DeleteCustomer(Customer customer);
 
-        Customer GetCustomerById(int customerId);
+        Task<Customer> GetCustomerById(int customerId);
 
-        void InsertCustomer(Customer customer);
+        Task InsertCustomer(Customer customer);
 
-        void UpdateCustomer(Customer customer);
+        Task UpdateCustomer(Customer customer);
 
-        IList<Customer> GetAllCustomers(string name);
+        Task<IList<Customer>> GetAllCustomers(string name);
 
-        CustomerModel ValidateCustomer(string username, string password);
+        Task<CustomerModel> ValidateCustomer(string username, string password);
 
-        CustomerModel ValidateCustomerRole(int customerId, int customerRoleId);
+        Task<CustomerModel> ValidateCustomerRole(int customerId, int customerRoleId);
 
-        TokenManager GetTokenByCustomerId(int customerId);
+        Task<TokenManager> GetTokenByCustomerId(int customerId);
 
-        TokenManager GetTokenById(int id);
+        Task<TokenManager> GetTokenById(int id);
 
-        void DeleteToken(TokenManager token);
+        Task DeleteToken(TokenManager token);
 
-        void InsertToken(TokenManager token);
+        Task InsertToken(TokenManager token);
 
-        LoginResponseModel GetLoginResponse(CustomerModel customer);
+        Task<LoginResponseModel> GetLoginResponse(CustomerModel customer);
 
-        LoginResponseModel GenerateToken(CustomerLoginTokenModel tokenModel);
+        Task<LoginResponseModel> GenerateToken(CustomerLoginTokenModel tokenModel);
     }
 }

@@ -4,6 +4,7 @@ using Hexa.Core.Data;
 using Hexa.Core.Domain.Pictures;
 using Hexa.Service.Contracts.Pictures;
 using System;
+using System.Threading.Tasks;
 
 namespace Hexa.Service.Services.Pictures
 {
@@ -19,35 +20,36 @@ namespace Hexa.Service.Services.Pictures
             _mapper = mapper;
         }
 
-        public void DeletePicture(int id)
+        public async Task DeletePicture(int id)
         {
             if (id == 0)
                 throw new ArgumentNullException("picture");
 
-            _pictureRepository.Delete(_mapper.Map<Picture>(GetPictureById(id)));
+            await _pictureRepository.Delete(_mapper.Map<Picture>(await GetPictureById(id)));
         }
 
-        public PictureModel GetPictureById(int pictureId)
+        public async Task<PictureModel> GetPictureById(int pictureId)
         {
             if (pictureId == 0)
                 return null;
 
-            return _mapper.Map<PictureModel>(_pictureRepository.GetById(pictureId));
+            return _mapper.Map<PictureModel>(await _pictureRepository.GetById(pictureId));
         }
 
-        public int InsertPicture(PictureModel picture)
+        public async Task<int> InsertPicture(PictureModel picture)
         {
             if (picture == null)
                 throw new ArgumentNullException("picture");
 
             var newPicture = _mapper.Map<Picture>(picture);
-            _pictureRepository.Insert(newPicture);
+            await _pictureRepository.Insert(newPicture);
 
-            if (newPicture == null) {
+            if (newPicture == null)
+            {
                 return 0;
             }
 
-            return newPicture.Id;
+            return await Task.FromResult(newPicture.Id);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Hexa.Business.Models.Catalog;
 using Hexa.Service.Contracts.Catalog;
 using Microsoft.AspNetCore.Mvc;
@@ -16,25 +17,25 @@ namespace HexaCommerce.Api.Admin
 
         // GET: api/Category
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_categoryService.GetAllCategories(null));
+            return Ok(await _categoryService.GetAllCategories(null));
         }
 
         // GET: api/Category/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok(_categoryService.GetCategoryById(id));
+            return Ok(await _categoryService.GetCategoryById(id));
         }
 
         // POST: api/Category
         [HttpPost]
-        public IActionResult Post([FromBody]CategoryModel model)
+        public async Task<IActionResult> Post([FromBody]CategoryModel model)
         {
             try
             {
-                _categoryService.InsertCategory(model);
+                await _categoryService.InsertCategory(model);
                 return Ok();
             }
             catch (Exception)
@@ -45,11 +46,11 @@ namespace HexaCommerce.Api.Admin
         
         // PUT: api/Category/5
         [HttpPut]
-        public IActionResult Put([FromBody]CategoryModel model)
+        public async Task<IActionResult> Put([FromBody]CategoryModel model)
         {
             try
             {
-                _categoryService.UpdateCategory(model);
+                await _categoryService.UpdateCategory(model);
                 return Ok();
             }
             catch (Exception)
@@ -60,11 +61,11 @@ namespace HexaCommerce.Api.Admin
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                _categoryService.DeleteCategory(id);
+                await _categoryService.DeleteCategory(id);
                 return Ok();
             }
             catch (Exception)

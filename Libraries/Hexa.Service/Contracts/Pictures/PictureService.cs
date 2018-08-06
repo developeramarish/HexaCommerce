@@ -1,13 +1,14 @@
 ﻿using Hexa.Business.Models.Pictures;
+using System.Threading.Tasks;
 
 namespace Hexa.Service.Contracts.Pictures
 {
     public interface IPictureService
     {
-        void DeletePicture(int id);
+        Task DeletePicture(int id);
 
-        PictureModel GetPictureById(int pictureId);
+        Task<PictureModel> GetPictureById(int pictureId);
 
-        int InsertPicture(PictureModel picture);
+        Task<int> InsertPicture(PictureModel picture);
     }
 }

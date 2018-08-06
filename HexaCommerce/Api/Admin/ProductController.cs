@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Hexa.Business.Models.Catalog;
 using Hexa.Service.Contracts.Catalog;
 using Microsoft.AspNetCore.Mvc;
@@ -16,25 +17,25 @@ namespace HexaCommerce.Api.Admin
 
         // GET: api/Product
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_productService.GetAllProducts(null));
+            return Ok(await _productService.GetAllProducts(null));
         }
 
         // GET: api/Product/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok(_productService.GetProductById(id));
+            return Ok(await _productService.GetProductById(id));
         }
         
         // POST: api/Product
         [HttpPost]
-        public IActionResult Post([FromBody]ProductModel model)
+        public async Task<IActionResult> Post([FromBody]ProductModel model)
         {
             try
             {
-                _productService.InsertProduct(model);
+                await _productService.InsertProduct(model);
                 return Ok();
             }
             catch (Exception)
@@ -45,11 +46,11 @@ namespace HexaCommerce.Api.Admin
 
         // PUT: api/Product/5
         [HttpPut]
-        public IActionResult Put([FromBody]ProductModel model)
+        public async Task<IActionResult> Put([FromBody]ProductModel model)
         {
             try
             {
-                _productService.UpdateProduct(model);
+                await _productService.UpdateProduct(model);
                 return Ok();
             }
             catch (Exception)
@@ -60,11 +61,11 @@ namespace HexaCommerce.Api.Admin
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                _productService.DeleteProduct(id);
+                await _productService.DeleteProduct(id);
                 return Ok();
             }
             catch (Exception)
