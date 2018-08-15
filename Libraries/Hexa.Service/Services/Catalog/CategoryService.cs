@@ -52,7 +52,7 @@ namespace Hexa.Service.Services.Catalog
             if (categoryId == 0)
                 return null;
 
-            var result = _mapper.Map<CategoryModel>(_categoryRepository.GetById(categoryId));
+            var result = _mapper.Map<CategoryModel>(await _categoryRepository.GetById(categoryId));
             if (result != null && result.PictureId > 0)
             {
                 result.Picture = await _pictureService.GetPictureById(result.PictureId);

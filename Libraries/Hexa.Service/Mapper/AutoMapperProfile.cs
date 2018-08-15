@@ -14,9 +14,9 @@ namespace Hexa.Service.Mapper
     {
         public AutoMapperProfile()
         {
-            CreateMap<Category, CategoryModel>();
-            CreateMap<Customer, CustomerModel>();
-            CreateMap<CustomerModel, Customer>();
+            CreateMap<Category, CategoryModel>().ReverseMap();
+            CreateMap<Customer, CustomerModel>().ReverseMap();
+            CreateMap<CustomerModel, Customer>().ReverseMap();
             CreateMap<Log, LogModel>().ReverseMap();
             CreateMap<Picture, PictureModel > ().ReverseMap();
             CreateMap<Product, ProductModel>().ReverseMap();

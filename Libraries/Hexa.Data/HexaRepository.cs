@@ -34,7 +34,7 @@ namespace Hexa.Data
         /// <returns></returns>
         public virtual async Task<T> GetById(int id)
         {
-            return await Entities.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
+            return await Entities.AsNoTracking().SingleOrDefaultAsync(i => i.Id == id);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Hexa.Data
                 Entities.Update(entity);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
