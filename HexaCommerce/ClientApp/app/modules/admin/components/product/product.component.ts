@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProductModel } from './product.model';
+import { ProductModel } from '../../models/product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RepositoryService } from '../../../../shared/repository.service';
 import { ConfirmationService } from 'primeng/api';

@@ -1,10 +1,10 @@
 ﻿import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { CategoryModel } from './category.model';
+import { CategoryModel } from '../../models/category.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RepositoryService } from '../../../../shared/repository.service';
 import { Message } from 'primeng/api';
-import { PictureModel } from '../../../../shared/picture.model';
+import { PictureModel } from '../../models/picture.model';
 
 @Component({
     selector: 'editCategory',

@@ -1,10 +1,11 @@
 ﻿import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { ProductModel } from './product.model';
+import { ProductModel } from '../../models/product.model';
+import { CategoryModel } from '../../models/category.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RepositoryService } from '../../../../shared/repository.service';
 import { Message } from 'primeng/api';
-import { PictureModel } from '../../../../shared/picture.model';
+import { PictureModel } from '../../models/picture.model';
 
 @Component({
     selector: 'editProduct',
@@ -17,6 +18,7 @@ export class EditProductComponent implements OnInit, OnDestroy {
     product: ProductModel;
     products: ProductModel[];
     productFrm: FormGroup;
+    categories: CategoryModel[];
     id: number;
     action: string = "Add";
     private sub: any;
@@ -34,6 +36,10 @@ export class EditProductComponent implements OnInit, OnDestroy {
 
         this.sub = this._route.params.subscribe(params => {
             this.id = +params['id'];
+        });
+
+        this._repositoryService.get("/admin/api/category/").subscribe(data => {
+            this.categories = data;
         });
 
         this._repositoryService.get("/admin/api/product/").subscribe(data => {
@@ -54,7 +60,8 @@ export class EditProductComponent implements OnInit, OnDestroy {
                     Price: [this.product.Price],
                     Deleted: [this.product.Deleted],
                     Published: [this.product.Published],
-                    DisplayOrder: [this.product.DisplayOrder]
+                    DisplayOrder: [this.product.DisplayOrder],
+                    CategoryId: [this.product.CategoryId]
                 });
                 this.pictureModel = data.Picture;
             }, error => {
@@ -75,7 +82,8 @@ export class EditProductComponent implements OnInit, OnDestroy {
                 Price: [0, Validators.required],
                 Deleted: false,
                 Published: true,
-                DisplayOrder: 0
+                DisplayOrder: 0,
+                CategoryId: [],
             });
         }
     }

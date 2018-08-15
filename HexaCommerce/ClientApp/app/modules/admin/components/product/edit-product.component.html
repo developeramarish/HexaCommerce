@@ -25,6 +25,13 @@
             <label for="IncludeInNavigation">Show On Home Page</label>
             <input type="checkbox" value="0" name="IncludeInNavigation" [formControl]="productFrm.controls['ShowOnHomePage']">
         </div>
+        <div class="form-group">
+            <label>Category</label><div class="clearfix"></div>
+            <select class="form-control col-md-6" [formControl]="productFrm.controls['CategoryId']">
+                <option value="0">Please Select</option>
+                <option *ngFor="let category of categories" value={{category.Id}}>{{category.Name}}</option>
+            </select>
+        </div>
         <div class="form-group" [ngClass]="{'has-error':!productFrm.controls['Price'].valid && productFrm.controls['Price'].touched}">
             <label>Price</label>
             <input class="form-control" type="number" placeholder="Price" [formControl]="productFrm.controls['Price']" required>

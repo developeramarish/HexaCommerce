@@ -1,4 +1,4 @@
-﻿import { PictureModel } from '../../../../shared/picture.model';
+﻿import { PictureModel } from './picture.model';
 
 export class CategoryModel {
     public Id: number;

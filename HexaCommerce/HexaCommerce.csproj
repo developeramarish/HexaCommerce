@@ -60,11 +60,11 @@
     <TypeScriptCompile Include="ClientApp\app\guards\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\adminapp.routing.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\product\product.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\modules\admin\components\product\product.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\admin\models\product.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\product\edit-product.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\edit-category.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\category.model.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\picture.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\admin\models\category.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\modules\admin\models\picture.model.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\repository.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\category\category.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\modules\admin\components\dashboard\dashboard.component.ts" />

@@ -1,4 +1,4 @@
-﻿import { PictureModel } from '../../../../shared/picture.model';
+﻿import { PictureModel } from './picture.model';
 
 export class ProductModel {
     public Id: number;
@@ -29,7 +29,8 @@ export class ProductModel {
     public DisplayOrder: number;
     public Published: boolean;
     public Deleted: boolean;
-    public PictureThumbnailUrl: string
+    public PictureThumbnailUrl: string;
+    public CategoryId: number;
 
     public Pictures: PictureModel[]
 }
